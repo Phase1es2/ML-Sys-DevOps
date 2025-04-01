@@ -37,9 +37,9 @@ link to their contributions in all repos here. -->
 
 | Name           | Responsible for                         | Link to their commits in this repo          |
 |----------------|-----------------------------------------|---------------------------------------------|
-| Jingwen Lu     | Model Training                          | [Commits](#) https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=lululu-mia                               |
-| Yang Hao       | Model Deployment and Monitoring         | [Commits](#) https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Phase1es2                               |
-| Xiaoyan Ouyang | Data Pipeline Implementation            | [Commits](#) https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Stephenieoo   
+| Jingwen Lu     | Model Training                          | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=lululu-mia)                              |
+| Yang Hao       | Model Deployment and Monitoring         | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Phase1es2 )                             |
+| Xiaoyan Ouyang | Data Pipeline Implementation            | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Stephenieoo)   
 
 
 
