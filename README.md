@@ -71,6 +71,7 @@ conditions under which it may be used. -->
 | Resource       | How it was created                                                                                                    | Conditions of use                                 |
 |----------------|-----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
 | CIFake Dataset | Collection of real and AI-generated images from sources such as [CIFake Dataset](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images/data) | Research use only                                 |
+| CIFAR-10       | [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf)                 |           MIT license           |
 | ResNet-50      | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       |
 | EfficientNet   | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       |
 
