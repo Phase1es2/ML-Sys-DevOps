@@ -37,15 +37,15 @@ link to their contributions in all repos here. -->
 
 | Name           | Responsible for                         | Link to their commits in this repo          |
 |----------------|-----------------------------------------|---------------------------------------------|
-| Jingwen Lu     | Model Training                          | [Commits](#)                                |
-| Yang Hao       | Model Deployment and Monitoring         | [Commits](#)                                |
-| Xiaoyan Ouyang | Data Pipeline Implementation            | [Commits](#)   
+| Jingwen Lu     | Model Training                          | [Commits](#) https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=lululu-mia                               |
+| Yang Hao       | Model Deployment and Monitoring         | [Commits](#) https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Phase1es2                               |
+| Xiaoyan Ouyang | Data Pipeline Implementation            | [Commits](#) https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Stephenieoo   
 
 
 
 ### System diagram
 
-<!-- Overall digram of system. Doesn't need polish, does need to show all the pieces. 
+<!-- Overall digram of system. Doesn't need polish, does need to show all the pieces
 Must include: all the hardware, all the containers/software platforms, all the models, 
 all the data. -->
 
