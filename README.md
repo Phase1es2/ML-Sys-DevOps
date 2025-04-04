@@ -17,6 +17,32 @@ The proposed machine learning system leverages large-scale deep learning models 
 - **Reduced False Positives/Negatives:** Optimized to minimize incorrect classifications.  
 - **Operational Efficiency:** High system uptime, scalability, and ease of maintenance.
 
+
+## Potential Customers & Business Applications
+
+Our system is designed to address the growing concerns of misinformation, deepfake content, and AI-generated media. It can be sold or licensed to various companies and industries, including:
+
+### Social Media & Content Platforms
+- **Meta (Facebook, Instagram):** Detect AI-generated or deepfake content to enhance content moderation.
+- **X (formerly Twitter):** Identify and flag manipulated media to combat misinformation.
+- **TikTok, YouTube:** Ensure authenticity of user-generated content and prevent deceptive AI media.
+
+### News & Media Organizations
+- **Reuters, Associated Press, The New York Times:** Authenticate images and videos before publishing.
+- **CNN, BBC:** Prevent fake media from influencing news reporting and public opinion.
+
+### Cybersecurity & Fraud Detection
+- **Microsoft, Google Cloud Security, IBM Security:** Detect AI-generated scam attempts and protect digital identities.
+- **Clearview AI, Pindrop, Onfido:** Enhance fraud detection in identity verification systems.
+
+### E-commerce & Online Marketplaces
+- **Amazon, eBay, Alibaba:** Detect manipulated product images or AI-generated fraudulent listings.
+- **Stock Photo Websites (Getty Images, Shutterstock):** Ensure authenticity of digital assets.
+
+### Government & Law Enforcement
+- **Department of Homeland Security (DHS), FBI:** Identify fake media in criminal investigations.
+- **Interpol, Europol:** Track and prevent AI-generated misinformation campaigns.
+
 <!-- 
 Discuss: Value proposition: Your will propose a machine learning system that can be 
 used in an existing business or service. (You should not propose a system in which 
@@ -68,12 +94,12 @@ Name of data/model, conditions under which it was created (ideally with links/re
 conditions under which it may be used. -->
 
 
-| Resource       | How it was created                                                                                                    | Conditions of use                                 |
-|----------------|-----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
-| CIFake Dataset | Collection of real and AI-generated images from sources such as [CIFake Dataset](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images/data) | Research use only                                 |
-| CIFAR-10       | [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf)                 |           MIT license           |
-| ResNet-50      | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       |
-| EfficientNet   | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       |
+| Resource       | How it was created                                                                                                    | Conditions of use                                 | Size / Hyperparameters                            |
+|----------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|--------------------------------------------------|
+| CIFake Dataset | Collection of real and AI-generated images from sources such as [CIFake Dataset](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images/data) | Research use only                                 | ~20,000 images (Real + AI-generated)             |
+| CIFAR-10       | [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf) | MIT license                                       | 60,000 images (32×32 pixels, 10 classes)         |
+| ResNet-50      | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       | 50 layers, ~25.6M parameters                     |
+| EfficientNet   | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       | B0-B7 variants, compound scaling, B0: ~5.3M params |
 
 ### Summary of infrastructure requirements
 
