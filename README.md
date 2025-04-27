@@ -1,52 +1,50 @@
-## AI-Driven Image Detection for Identifying Fake vs Real Images
+## AI-Driven Image Enhancement for Restoring Low-Quality Images to High Resolution
 
-In today's digital landscape, distinguishing between real and AI-generated images presents a significant challenge. Existing automated detection systems often suffer from low accuracy—especially when faced with sophisticated deepfake techniques. This leads to reliance on manual reviews and traditional tools that are slow and error-prone, ultimately diminishing user trust and safety on social media and content platforms.
+In today's digital landscape, the proliferation of low-quality images due to compression, aging, and bandwidth limitations presents a significant challenge. Existing solutions for enhancing low-quality images often suffer from poor scalability and limited restoration fidelity—especially when dealing with highly degraded content such as old photographs or heavily compressed media. This results in loss of valuable visual information and negatively impacts applications in personal heritage preservation, e-commerce, journalism, and social media.
 
 ### Value Proposition
 
 **Current Business or Service Status Quo:**  
-Content platforms currently depend on traditional image verification methods that are either manually intensive or based on outdated automated detection systems. These methods struggle against increasingly advanced AI-generated images, leading to higher error rates and delays in content moderation.
+Today, platforms and services dealing with images—such as digital archives, e-commerce platforms, and media companies—typically rely on basic interpolation techniques or manual editing to upscale or enhance low-resolution images. These traditional methods struggle to reconstruct fine-grained details, often leading to blurry results and considerable time investment.
 
 **Proposed System's Value Proposition:**  
-The proposed machine learning system leverages large-scale deep learning models and state-of-the-art computer vision techniques to differentiate AI-generated images from real images with high accuracy. By providing real-time, highly accurate image classification, this system will enhance content moderation and flag potentially deceptive AI-generated content, thereby improving user trust and safety.
+The proposed machine learning system leverages state-of-the-art deep learning models for super-resolution, such as ESRGAN and SwinIR, to automatically restore and enhance low-quality images to high-resolution versions. By providing high-fidelity, real-time image enhancement, this system will help preserve visual content quality, extend the usability of degraded images, and improve user experience across multiple industries.
 
 **Business Metrics:**  
-The success of our **AI-Driven Image Detection System** will be evaluated using the following key performance indicators (KPIs):
+The success of our AI-Driven Image Enhancement System will be evaluated using the following key performance indicators (KPIs):
 
-* **Accuracy Rate:** Achieve a minimum of **95% classification accuracy** in distinguishing real and AI-generated images.
+* **Peak Signal-to-Noise Ratio (PSNR):** Achieve at least 28 dB on standard benchmarks like DIV2K validation set.
 
-* **Real-Time Processing:** Ensure image classification occurs in **less than 1 second per image** for scalability in real-world applications.
+* **Structural Similarity Index (SSIM):** Maintain an SSIM score above 0.85 to ensure perceptual quality.
 
-* **Reduced False Positive & False Negative Rates:** Optimize the system to minimize misclassifications, improving reliability.
+* **Real-Time Processing:** Ensure image restoration completes within 1 second for images up to 1080p resolution.
 
-* **Operational Efficiency:** Measure **system uptime, scalability, and maintenance efficiency** to ensure continuous deployment in production environments.
+* **Operational Efficiency:** Measure system uptime, scalability, and maintenance efficiency in production environments.
 
 ## Potential Customers & Business Applications
 
-Our system is designed to address the growing concerns of misinformation, deepfake content, and AI-generated media. It can be sold or licensed to various companies and industries, including:
+Our system is designed to address the growing demand for high-quality image content restoration across various industries:
 
-### Social Media & Content Platforms
-- **Meta (Facebook, Instagram):** Detect AI-generated or deepfake content to enhance content moderation.
-- **X (formerly Twitter):** Identify and flag manipulated media to combat misinformation.
-- **TikTok, YouTube:** Ensure authenticity of user-generated content and prevent deceptive AI media.
+### Personal Heritage & Photo Restoration
 
-### News & Media Organizations
-- **Reuters, Associated Press, The New York Times:** Authenticate images and videos before publishing.
-- **CNN, BBC:** Prevent fake media from influencing news reporting and public opinion.
+Companies like MyHeritage and Photomyne: Restore old, degraded family photographs into high-quality digital assets.
 
-### Cybersecurity & Fraud Detection
-- **Microsoft, Google Cloud Security, IBM Security:** Detect AI-generated scam attempts and protect digital identities.
-- **Clearview AI, Pindrop, Onfido:** Enhance fraud detection in identity verification systems.
+### E-commerce Platforms
 
-### E-commerce & Online Marketplaces
-- **Amazon, eBay, Alibaba:** Detect manipulated product images or AI-generated fraudulent listings.
-- **Stock Photo Websites (Getty Images, Shutterstock):** Ensure authenticity of digital assets.
+Shopify, Etsy sellers: Enhance low-quality product images to boost sales and improve product presentation.
 
-### Government & Law Enforcement
-- **Department of Homeland Security (DHS), FBI:** Identify fake media in criminal investigations.
-- **Interpol, Europol:** Track and prevent AI-generated misinformation campaigns.
-- 
-By integrating **our system** into these industries, we can provide **a scalable, real-time solution** that enhances digital trust and security in the AI era.
+### Media & Journalism
+Getty Images, Shutterstock: Automatically upscale old archives or field-reported compressed images.
+
+### Social Media & User-Generated Content
+Instagram, Facebook: Improve visual quality of user-uploaded compressed or resized images.
+
+### Mobile OEMs and Camera Manufacturers
+OPPO, Vivo, Samsung: Integrate real-time enhancement into photo post-processing pipelines.
+
+
+By integrating our system into these industries, we can provide a scalable, real-time solution that maximizes the value of visual assets and significantly improves digital experiences.
+
 
 <!-- 
 Discuss: Value proposition: Your will propose a machine learning system that can be 
@@ -69,8 +67,8 @@ link to their contributions in all repos here. -->
 | Name           | Responsible for                         | Link to their commits in this repo          |
 |----------------|-----------------------------------------|---------------------------------------------|
 | Jingwen Lu     | Model Training                          | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=lululu-mia)                              |
-| Yang Hao       | Model Deployment and Monitoring         | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Phase1es2 )                             |
-| Xiaoyan Ouyang | Data Pipeline Implementation            | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Stephenieoo)   
+| Xiaoyan Ouyang | Model Deployment and Monitoring         | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Phase1es2 )                             |
+| Yang Hao       | Data Pipeline Implementation            | [Commits](https://github.com/Phase1es2/ML-Sys-DevOps/commits?author=Stephenieoo)   
 
 
 
@@ -80,14 +78,14 @@ link to their contributions in all repos here. -->
 Must include: all the hardware, all the containers/software platforms, all the models, 
 all the data. -->
 
-The system consists of multiple components ensuring seamless image detection and deployment:
+The system consists of multiple components ensuring seamless image restoration and deployment:
 
-- **Data Sources:** Collection of real and AI-generated images (e.g., CIFake, Deepfake datasets).  
-- **Model Training:** Fine-tuning deep learning models such as ResNet and EfficientNet on large datasets.  
-- **Model Serving:** Deployment via API-based services using FastAPI or Flask for real-time inference.  
-- **Monitoring and Feedback:** Continuous performance monitoring (e.g., via Prometheus and Grafana) to detect model drift and trigger retraining as needed.  
-- **Cloud Infrastructure:** Utilization of managed Kubernetes clusters and Docker containers for scalable deployment.  
-- **Data Pipeline:** ETL processes (using tools like Apache Airflow) for periodic dataset updates to maintain model accuracy.
+- **Data Sources:** Low-resolution and high-resolution image pairs from datasets like DIV2K, Set5, Set14, and BSD100.  
+- **Model Training:** Fine-tuning pre-trained ESRGAN and SwinIR models on large-scale super-resolution datasets.  
+- **Model Serving:** Deployment via API-based services using FastAPI or Flask for real-time inference.
+- **Monitoring and Feedback:** Continuous system performance monitoring using Prometheus and Grafana to detect anomalies and trigger model retraining if needed.
+- **Cloud Infrastructure:** Managed Kubernetes clusters and Docker containers for scalable deployment.
+- **Data Pipeline:** ETL processes (using Apache Airflow) for periodic dataset augmentation and retraining.
 
 ![Design Structure Diagram](img/Design_Structure.jpg "Detailed Design Plan Diagram")
 
@@ -101,10 +99,10 @@ conditions under which it may be used. -->
 
 | Resource       | How it was created                                                                                                    | Conditions of use                                 | Size / Hyperparameters                            |
 |----------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|--------------------------------------------------|
-| CIFake Dataset | Collection of real and AI-generated images from sources such as [CIFake Dataset](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images/data) | Research use only                                 | ~20,000 images (Real + AI-generated)             |
-| CIFAR-10       | [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf) | MIT license                                       | 60,000 images (32×32 pixels, 10 classes)         |
-| ResNet-50      | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       | 50 layers, ~25.6M parameters                     |
-| EfficientNet   | Pre-trained on ImageNet for image classification                                                                      | Open-source for academic and commercial use       | B0-B7 variants, compound scaling, B0: ~5.3M params |
+| DIV2K Dataset  | High-res images degraded to create LR-HR pairs [DIV2K Dataset](https://data.vision.ee.ethz.ch/cvl/DIV2K/) | Research use only                                 | 800 training images, 2K resolution             |
+| Set5/Set14/BSD100       | Standard Super-Resolution Test Sets [Set5/Set14/BSD100](https://github.com/jbhuang0604/SelfExSR/tree/master/data) | Research use only                                       | 	Small benchmark sets         |
+| ESRGAN Model      | Pre-trained on DIV2K and Flickr2K  [ESRGAN Model](https://github.com/xinntao/ESRGAN)                                                                    | Open-source for academic and commercial use       | 43M parameters                     |
+| SwinIR Model   | Pre-trained on ImageNet for image classification [SwinIR Model](https://github.com/JingyunLiang/SwinIR)                                                                    | Open-source for academic and commercial use       | Variable depending on SwinIR variant |
 
 ### Summary of infrastructure requirements
 
@@ -129,19 +127,20 @@ diagram, (3) justification for your strategy, (4) relate back to lecture materia
 
 
 **Strategy:**  
-- Utilize pre-trained models such as ResNet-50 and EfficientNet, fine-tuned on the CIFake dataset.  
-- Apply transfer learning techniques to optimize these models for detecting AI-generated images.  
-- Train models on cloud-based GPU instances using TensorFlow or PyTorch.
+- Utilize pre-trained ESRGAN and SwinIR models.
+- Fine-tune models on DIV2K and additional custom low-resolution datasets.
+- Apply transfer learning techniques to adapt to real-world compressed image scenarios.
+- Use TensorFlow or PyTorch on cloud-based GPU instances.
 
 **Justification:**  
-- ResNet-50 and EfficientNet are state-of-the-art models for image classification.  
-- Fine-tuning these models on a domain-specific dataset enhances their ability to detect fake images.  
-- Transfer learning reduces computational costs and training time compared to building models from scratch.
+- ESRGAN and SwinIR represent state-of-the-art approaches in super-resolution tasks.
+- Transfer learning accelerates training and improves model generalization.
+- High-fidelity output is critical for customer-facing applications.
 
 **Implementation Details:**  
-- **Training Duration:** Approximately 20 epochs with learning rate adjustments based on convergence.  
-- **Evaluation Metrics:** Validation accuracy and loss will be used to measure performance.
-
+- **Training Duration:** Approximately 100,000 iterations or until validation loss convergence.
+- **Evaluation Metrics:** PSNR and SSIM scores on validation datasets.
+  
 <!-- Make sure to clarify how you will satisfy the Unit 4 and Unit 5 requirements, 
 and which optional "difficulty" points you are attempting. -->
 
@@ -152,16 +151,16 @@ and which optional "difficulty" points you are attempting. -->
 
 
 **Strategy:**  
-- Deploy the trained model as a web API using FastAPI or Flask to enable real-time image classification.  
-- Monitor system performance using tools like Prometheus and Grafana to track response times and accuracy.
+- Deploy trained models as web APIs using FastAPI for low-latency, scalable inference.
+- Use Prometheus and Grafana for system performance monitoring.
 
 **Justification:**  
-- FastAPI offers high-performance asynchronous processing, ideal for real-time inference.  
-- Real-time monitoring ensures that any performance issues or model drifts are quickly detected and addressed.
+- FastAPI supports high-throughput, real-time processing needs.
+- Real-time monitoring helps ensure reliability and identify model drift early.
 
 **Implementation Details:**  
-- **Target Throughput:** At least 500 requests per minute.  
-- **Response Time:** Each image should be classified in under 1 second.
+- **Target Throughput:** 500+ images per minute.
+- **Response Time:** Less than 1 second per image (up to 1080p resolution).
 
 #### Data pipeline
 
@@ -169,16 +168,15 @@ and which optional "difficulty" points you are attempting. -->
 optional "difficulty" points you are attempting. -->
 
 **Strategy:**  
-- Establish an ETL pipeline using Apache Airflow to automate data ingestion, transformation, and model retraining.  
-- Regularly update datasets with new images to ensure the model remains accurate against emerging deepfake techniques.
+- Establish an ETL pipeline using Apache Airflow to automate image ingestion, preprocessing (downscaling to simulate low-resolution input), and periodic retraining.
 
 **Justification:**  
-- Automating the data pipeline reduces manual intervention and ensures up-to-date training data.  
-- Continuous updates help improve model generalizability and robustness.
+- Continuous updates improve model robustness against varied image degradations.
+- Automation reduces operational overhead.
 
 **Implementation Details:**  
 - **Dataset Updates:** Scheduled every two weeks.  
-- **Model Retraining:** Triggered by significant data changes or when performance drift is detected.
+- **Model Retraining:** Triggered based on monitored performance thresholds.
 
 
 <!-- Make sure to clarify how you will satisfy the Unit 3 requirements,  and which 
@@ -186,15 +184,15 @@ optional "difficulty" points you are attempting. -->
 #### Continuous Integration and Deployment (CI/CD)
 
 **Strategy:**  
-- Implement GitLab CI/CD pipelines to automate testing, training, and deployment processes.  
-- Use Docker containers to ensure consistency across development, testing, and production environments.
-
+- Implement GitLab CI/CD pipelines to automate model testing, training, validation, and deployment.
+- Use Docker containers to ensure reproducible environments across development, testing, and production.
+  
 **Justification:**  
-- Automated pipelines ensure that every change undergoes rigorous testing, maintaining high model quality.  
-- Docker standardizes the runtime environment, reducing deployment-related issues.
+- Automated pipelines maintain system quality and accelerate delivery cycles.
+- Containerization simplifies model updates and scaling.
 
 **Implementation Details:**  
-- **Automated Testing:** Aim for at least 95% test coverage.  
-- **Deployment Triggers:** Any model update or bug fix must pass CI/CD pipelines before being deployed.
+- **Automated Testing:** 95%+ coverage targeted.
+- **Deployment Triggers:** Any new model version must pass all CI/CD checks before going live.
 
 
