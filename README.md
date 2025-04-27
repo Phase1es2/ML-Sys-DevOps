@@ -25,22 +25,22 @@ The success of our AI-Driven Image Enhancement System will be evaluated using th
 
 Our system is designed to address the growing demand for high-quality image content restoration across various industries:
 
-### Personal Heritage & Photo Restoration
+### 1. Personal Heritage & Photo Restoration
 
-Companies like MyHeritage and Photomyne: Restore old, degraded family photographs into high-quality digital assets.
+**Companies like MyHeritage and Photomyne:** Restore old, degraded family photographs into high-quality digital assets.
 
-### E-commerce Platforms
+### 2. E-commerce Platforms
 
-Shopify, Etsy sellers: Enhance low-quality product images to boost sales and improve product presentation.
+**Shopify, Etsy sellers:** Enhance low-quality product images to boost sales and improve product presentation.
 
-### Media & Journalism
-Getty Images, Shutterstock: Automatically upscale old archives or field-reported compressed images.
+### 3. Media & Journalism
+**Getty Images, Shutterstock:** Automatically upscale old archives or field-reported compressed images.
 
-### Social Media & User-Generated Content
-Instagram, Facebook: Improve visual quality of user-uploaded compressed or resized images.
+### 4. Social Media & User-Generated Content
+**Instagram, Facebook:** Improve visual quality of user-uploaded compressed or resized images.
 
-### Mobile OEMs and Camera Manufacturers
-OPPO, Vivo, Samsung: Integrate real-time enhancement into photo post-processing pipelines.
+### 5. Mobile OEMs and Camera Manufacturers
+**OPPO, Vivo, Samsung:** Integrate real-time enhancement into photo post-processing pipelines.
 
 
 By integrating our system into these industries, we can provide a scalable, real-time solution that maximizes the value of visual assets and significantly improves digital experiences.
