@@ -87,7 +87,7 @@ The system consists of multiple components ensuring seamless image restoration a
 - **Cloud Infrastructure:** Managed Kubernetes clusters and Docker containers for scalable deployment.
 - **Data Pipeline:** ETL processes (using Apache Airflow) for periodic dataset augmentation and retraining.
 
-![Design Structure Diagram](img/Design_Structure.jpg "Detailed Design Plan Diagram")
+![Design Structure Diagram](img/Design_Structure.png "Detailed Design Plan Diagram")
 
 
 ### Summary of outside materials
