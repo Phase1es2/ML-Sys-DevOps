@@ -1,4 +1,5 @@
 #!/bin/sh
+# hello 
 curl -sSL https://get.docker.com/ | sudo sh
 sudo groupadd -f docker; sudo usermod -aG docker $USER
 docker run hello-world
