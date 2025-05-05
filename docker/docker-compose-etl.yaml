@@ -1,21 +1,36 @@
-name: sr-etl
+version: "3.8"
+
 volumes:
   sr:
 
 services:
+
   extract-data:
     container_name: etl_extract_data
     image: python:3.11
     user: root
     volumes:
-      - sr:/data            # <-- same two-space indent as 'image', 'user', etc.
-      - ~/.kaggle.json:/root/.kaggle/kaggle.json:ro
+      - sr:/data
     working_dir: /data
     command: >
       bash -c "set -e
-               pip install --no-cache-dir kaggle
-               kaggle datasets download -d soumikrakshit/div2k-high-resolution-images -p ./div2k_raw --unzip
-               ls -lR /data"
+               # download & unpack HR
+               for f in DIV2K_train_HR DIV2K_valid_HR; do
+                 url=https://data.vision.ee.ethz.ch/cvl/DIV2K/${f}.zip
+                 curl -L \"$url\" -o ${f}.zip
+                 unzip -q ${f}.zip && rm ${f}.zip
+               done
+
+               # download & unpack LR ×4
+               for f in DIV2K_train_LR_bicubic_X4 DIV2K_valid_LR_bicubic_X4; do
+                 url=https://data.vision.ee.ethz.ch/cvl/DIV2K/${f}.zip
+                 curl -L \"$url\" -o ${f}.zip
+                 unzip -q ${f}.zip && rm ${f}.zip
+               done
+
+               echo '>>> /data now contains:' 
+               ls -lhR /data
+      "
 
   transform-data:
     container_name: etl_transform_data
@@ -23,13 +38,22 @@ services:
     user: root
     volumes:
       - sr:/data
-    working_dir: /data/SR
+    working_dir: /data
     command: >
       bash -c "set -e
-               mkdir -p div2k/{train,validation}
-               mv div2k_raw/DIV2K_train_HR/DIV2K_train_HR/* div2k/train/
-               mv div2k_raw/DIV2K_valid_HR/DIV2K_valid_HR/* div2k/validation/
-               ls -lR /data"
+               mkdir -p SR/div2k/{train,validation,lr,hr}
+
+               # move HR
+               mv DIV2K_train_HR/* SR/div2k/train/
+               mv DIV2K_valid_HR/* SR/div2k/validation/
+
+               # move LR ×4
+               mv DIV2K_train_LR_bicubic_X4/* SR/div2k/lr/
+               mv DIV2K_valid_LR_bicubic_X4/* SR/div2k/hr/
+
+               echo '>>> SR/div2k structure:'
+               ls -lhR SR/div2k
+      "
 
   load-data:
     container_name: etl_load_data
