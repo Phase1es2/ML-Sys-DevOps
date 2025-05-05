@@ -35,27 +35,23 @@ services:
     volumes:
       - sr:/data
     working_dir: /data
+    # clear any entrypoint so we get bash
+    entrypoint: []
     command: >
       bash -e <<\EOF
-        # make target dirs
         mkdir -p SR/div2k/{hr,lr,train,validation}
 
-        # move HR into train/validation
+        # move HR
         mv DIV2K_train_HR/*        SR/div2k/train/
         mv DIV2K_valid_HR/*        SR/div2k/validation/
 
-        # also collect all HR in a flat hr/ if you need it
-        cp SR/div2k/train/*        SR/div2k/hr/
-        cp SR/div2k/validation/*   SR/div2k/hr/
-
-        # move LR into lr/
+        # move LR
         mv DIV2K_train_LR_bicubic/* SR/div2k/lr/
         mv DIV2K_valid_LR_bicubic/* SR/div2k/lr/
 
         echo '>>> final SR/div2k tree:'
         ls -lhR SR/div2k
-      EOFSR/div2k
-      "
+      EOF
 
   load-data:
     container_name: etl_load_data
