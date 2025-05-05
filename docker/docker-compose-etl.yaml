@@ -1,0 +1,48 @@
+version: "3.8"
+name: sr-etl
+volumes:
+  sr:
+
+services:
+  etl_extract_data:
+    image: python:3.11
+    user: root
+    environment:
+      - KAGGLE_USERNAME=${KAGGLE_USERNAME}
+      - KAGGLE_KEY=${KAGGLE_KEY}
+    volumes:
+      - sr:/data            # <-- same two-space indent as 'image', 'user', etc.
+      - ~/.kaggle:/root/.kaggle:ro
+    working_dir: /data
+    command: >
+      bash -c "set -e
+               pip install --no-cache-dir kaggle
+               kaggle datasets download -d soumikrakshit/div2k-high-resolution-images -p ./div2k_raw --unzip
+               ls -lR /data"
+
+  etl_transform_data:
+    image: python:3.11
+    user: root
+    volumes:
+      - sr:/data
+    working_dir: /data
+    command: >
+      bash -c "set -e
+               mkdir -p div2k/{train,validation}
+               mv div2k_raw/DIV2K_train_HR/DIV2K_train_HR/* div2k/train/
+               mv div2k_raw/DIV2K_valid_HR/DIV2K_valid_HR/* div2k/validation/
+               ls -lR /data"
+
+  etl_load_data:
+    image: rclone/rclone:latest
+    volumes:
+      - sr:/data
+      - ~/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf:ro
+    environment:
+      - RCLONE_CONTAINER=my‑remote:path/to/datasets
+    entrypoint: /bin/sh
+    command: |
+      set -e
+      rclone delete $RCLONE_CONTAINER --rmdirs || true
+      rclone copy /data $RCLONE_CONTAINER --progress
+      rclone lsd $RCLONE_CONTAINER
