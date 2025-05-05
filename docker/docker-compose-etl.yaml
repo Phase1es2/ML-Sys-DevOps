@@ -1,4 +1,3 @@
-version: "3.8"
 name: sr-etl
 volumes:
   sr:
@@ -44,6 +43,6 @@ services:
     entrypoint: /bin/sh
     command: |
       set -e
-      rclone delete $RCLONE_CONTAINER --rmdirs || true
-      rclone copy /data/SR $RCLONE_CONTAINER --progress
-      rclone lsd $RCLONE_CONTAINER
+      rclone delete chi_tacc:$RCLONE_CONTAINER --rmdirs || true
+      rclone copy /data/SR chi_tacc:$RCLONE_CONTAINER --progress
+      rclone lsd chi_tacc:$RCLONE_CONTAINER
