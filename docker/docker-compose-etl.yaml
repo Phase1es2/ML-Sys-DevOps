@@ -42,18 +42,16 @@ services:
       bash -lc "
         set -eux
 
-        # make target dirs
         mkdir -p SR/div2k/{train,validation,lr,hr}
 
-        # move HR (full‑res)
+        # move HR
         mv DIV2K_train_HR/*     SR/div2k/train/
         mv DIV2K_valid_HR/*     SR/div2k/validation/
 
-        # move LR ×4 (bicubic)
+        # move LR ×4
         mv DIV2K_train_LR_bicubic/X4/*  SR/div2k/lr/
         mv DIV2K_valid_LR_bicubic/X4/*  SR/div2k/hr/
 
-        # final sanity check
         echo '>>> SR/div2k:'
         ls -lhR SR/div2k
       "
