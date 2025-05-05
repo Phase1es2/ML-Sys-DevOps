@@ -7,12 +7,9 @@ services:
     container_name: etl_extract_data
     image: python:3.11
     user: root
-    environment:
-      - KAGGLE_USERNAME=${KAGGLE_USERNAME}
-      - KAGGLE_KEY=${KAGGLE_KEY}
     volumes:
       - sr:/data            # <-- same two-space indent as 'image', 'user', etc.
-      - ~/.kaggle:/root/.kaggle:ro
+      - ~/.kaggle.json:/root/.kaggle/kaggle.json:ro
     working_dir: /data
     command: >
       bash -c "set -e
