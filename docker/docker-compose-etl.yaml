@@ -4,7 +4,8 @@ volumes:
   sr:
 
 services:
-  etl_extract_data:
+  extract-data:
+    container_name: etl_extract_data
     image: python:3.11
     user: root
     environment:
@@ -20,12 +21,13 @@ services:
                kaggle datasets download -d soumikrakshit/div2k-high-resolution-images -p ./div2k_raw --unzip
                ls -lR /data"
 
-  etl_transform_data:
+  transform-data:
+    container_name: etl_transform_data
     image: python:3.11
     user: root
     volumes:
       - sr:/data
-    working_dir: /data
+    working_dir: /data/SR
     command: >
       bash -c "set -e
                mkdir -p div2k/{train,validation}
@@ -33,16 +35,15 @@ services:
                mv div2k_raw/DIV2K_valid_HR/DIV2K_valid_HR/* div2k/validation/
                ls -lR /data"
 
-  etl_load_data:
+  load-data:
+    container_name: etl_load_data
     image: rclone/rclone:latest
     volumes:
       - sr:/data
       - ~/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf:ro
-    environment:
-      - RCLONE_CONTAINER=my‑remote:path/to/datasets
     entrypoint: /bin/sh
     command: |
       set -e
       rclone delete $RCLONE_CONTAINER --rmdirs || true
-      rclone copy /data $RCLONE_CONTAINER --progress
+      rclone copy /data/SR $RCLONE_CONTAINER --progress
       rclone lsd $RCLONE_CONTAINER
