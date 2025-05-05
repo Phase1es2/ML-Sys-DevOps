@@ -56,30 +56,26 @@ services:
   load-data:
     container_name: etl_load_data
     image: rclone/rclone:latest
-    user: root
     volumes:
-      - sr:/data                             # ← your shared volume
+      - sr:/data
       - ~/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf:ro
-    entrypoint: ["/bin/sh","-c"]
-    command: |
-      #!/bin/sh
-      set -e
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        if [ -z "$RCLONE_CONTAINER" ]; then
+          echo "ERROR: RCLONE_CONTAINER is not set"
+          exit 1
+        fi
+        echo "Cleaning up existing contents of container..."
+        rclone delete chi_tacc:$RCLONE_CONTAINER --rmdirs || true
 
-      if [ -z "$RCLONE_CONTAINER" ]; then
-        echo "ERROR: RCLONE_CONTAINER is not set"
-        exit 1
-      fi
-
-      echo "Cleaning up any existing remote data in $RCLONE_CONTAINER…"
-      rclone delete chi_tacc:"$RCLONE_CONTAINER" --rmdirs || true
-
-      echo "Uploading local /data/SR → chi_tacc:$RCLONE_CONTAINER …"
-      rclone copy /data/SR chi_tacc:"$RCLONE_CONTAINER" \
+        rclone copy /data/SR chi_tacc:$RCLONE_CONTAINER \
         --progress \
         --transfers=32 \
         --checkers=16 \
         --multi-thread-streams=4 \
         --fast-list
 
-      echo "Remote directories after load:"
-      rclone lsd chi_tacc:"$RCLONE_CONTAINER"
+        echo "Listing directories in container after load stage:"
+        rclone lsd chi_tacc:$RCLONE_CONTAINER
