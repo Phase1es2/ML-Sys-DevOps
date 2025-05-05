@@ -39,29 +39,22 @@ services:
       - sr:/data
     working_dir: /data
     command: >
-      bash -c "set -e
+      bash -lc "
+        set -eux
 
-        # 1) Make the target dirs
+        # make target dirs
         mkdir -p SR/div2k/{train,validation,lr,hr}
 
-        # 2) Move the 800 training HR images (0001–0800)
-        for i in {0001..0800}; do
-          mv \"\$i.png\" SR/div2k/train/
-        done
+        # move HR (full‑res)
+        mv DIV2K_train_HR/*     SR/div2k/train/
+        mv DIV2K_valid_HR/*     SR/div2k/validation/
 
-        # 3) Move the 100 validation HR images
-        mv DIV2K_valid_HR/* SR/div2k/validation/
-        rmdir DIV2K_valid_HR
+        # move LR ×4 (bicubic)
+        mv DIV2K_train_LR_bicubic/X4/*  SR/div2k/lr/
+        mv DIV2K_valid_LR_bicubic/X4/*  SR/div2k/hr/
 
-        # 4) Move the LR ×4 images
-        mv DIV2K_train_LR_bicubic/X4/* SR/div2k/lr/
-        rm -r DIV2K_train_LR_bicubic
-
-        mv DIV2K_valid_LR_bicubic/X4/* SR/div2k/hr/
-        rm -r DIV2K_valid_LR_bicubic
-
-        # 5) Verify
-        echo '>>> Final SR/div2k layout:'
+        # final sanity check
+        echo '>>> SR/div2k:'
         ls -lhR SR/div2k
       "
 
