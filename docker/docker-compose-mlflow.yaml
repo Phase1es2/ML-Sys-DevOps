@@ -1,8 +1,7 @@
-version: '3'
-
+name: tracking_service
 volumes:
   minio_data:
-  postgres_data:
+  mlflow_postgres_data:
 
 services:
   minio:
@@ -40,15 +39,16 @@ services:
 
   postgres:
     image: postgres:latest
+    container_name: mlflow-postgres
     restart: always
     environment:
       POSTGRES_USER: mlflow
       POSTGRES_PASSWORD: mlflow123
       POSTGRES_DB: mlflowdb
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mlflow_postgres_data:/var/lib/postgresql/data
 
   mlflow:
     image: ghcr.io/mlflow/mlflow:v2.20.2
