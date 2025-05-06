@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  fastapi_server:
+    build:
+      context: /home/cc/ML-Sys-DevOps/fastapi_infer
+      dockerfile: Dockerfile
+    container_name: fastapi_server
+    ports:
+      - "8010:8000"  # expose FastAPI on port 8010
+
+  jupyter:
+    image: quay.io/jupyter/minimal-notebook:latest
+    container_name: jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - /home/cc/ML-Sys-DevOps/workspace:/home/jovyan/work
+    command: >
+      bash -c "python3 -m pip install numpy && start-notebook.sh"
+
+  flask:
+    build:
+      context: https://github.com/teaching-on-testbeds/gourmetgram.git#fastapi
+    container_name: flask
+    ports:
+      - "80:5000"
+    environment:
+      - FASTAPI_SERVER_URL=http://fastapi_server:8000
