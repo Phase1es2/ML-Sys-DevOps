@@ -1,68 +1,71 @@
-# fastapi_infer/main.py
-
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 import torch
-from torchvision import transforms
-from PIL import Image
 import torch.nn.functional as F
 import base64
 import io
+from PIL import Image
 import numpy as np
 
+from transformers import DepthProConfig
+from depthpro_sr import DepthProForSuperResolution  # 你自己定义的模型类（建议放到 depthpro_sr.py 中）
+
 app = FastAPI(
-    title="Food Classification API",
-    description="API for classifying food items from images",
+    title="Image Super-Resolution API",
+    description="Upscales low-res images using DepthPro-based SR model",
     version="1.0.0"
 )
 
-# Define request and response formats
+# Request/response schema
 class ImageRequest(BaseModel):
     image: str  # base64-encoded image
 
-class PredictionResponse(BaseModel):
-    prediction: str
-    probability: float = Field(..., ge=0, le=1)
+class ImageResponse(BaseModel):
+    sr_image: str  # base64-encoded super-resolved image
 
-# Set device (GPU if available, otherwise CPU)
+# Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load model
-MODEL_PATH = "food11.pth"
-model = torch.load(MODEL_PATH, map_location=device)
+config = DepthProConfig.from_pretrained("geetu040/DepthPro", revision="project")
+model = DepthProForSuperResolution(config)
+model.load_state_dict(torch.load("depthpro_sr_best.pth", map_location=device))
 model.to(device)
 model.eval()
 
-# Class labels
-classes = np.array([
-    "Bread", "Dairy product", "Dessert", "Egg", "Fried food",
-    "Meat", "Noodles/Pasta", "Rice", "Seafood", "Soup", "Vegetable/Fruit"
-])
+# Preprocess input image
+def preprocess_image(image: Image.Image) -> torch.Tensor:
+    image = image.convert("RGB")
+    image = image.resize((256, 256), Image.BICUBIC)
+    image = np.array(image).astype(np.float32) / 255.0
+    image = (image - 0.5) / 0.5  # Normalize to [-1, 1]
+    image = torch.tensor(image).permute(2, 0, 1).unsqueeze(0)
+    return image
 
-# Image preprocessing
-def preprocess_image(img):
-    transform = transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std=[0.229, 0.224, 0.225])
-    ])
-    return transform(img).unsqueeze(0)
+# Postprocess output tensor to image
+def tensor_to_image(tensor: torch.Tensor) -> Image.Image:
+    tensor = tensor.squeeze(0).permute(1, 2, 0).cpu().detach().numpy()
+    tensor = (tensor * 0.5 + 0.5).clip(0, 1)  # Unnormalize
+    tensor = (tensor * 255).astype(np.uint8)
+    return Image.fromarray(tensor)
 
-@app.post("/predict", response_model=PredictionResponse)
-def predict_image(request: ImageRequest):
+@app.post("/predict", response_model=ImageResponse)
+def super_resolve(request: ImageRequest):
     try:
         image_data = base64.b64decode(request.image)
-        image = Image.open(io.BytesIO(image_data)).convert("RGB")
-        image_tensor = preprocess_image(image).to(device)
+        image = Image.open(io.BytesIO(image_data))
+        input_tensor = preprocess_image(image).to(device)
 
         with torch.no_grad():
-            output = model(image_tensor)
-            probs = F.softmax(output, dim=1)
-            pred_idx = torch.argmax(probs, 1).item()
-            conf = probs[0, pred_idx].item()
+            output = model(input_tensor)
+            output = F.interpolate(output, scale_factor=4, mode="bilinear", align_corners=False)
 
-        return PredictionResponse(prediction=classes[pred_idx], probability=conf)
+        sr_image = tensor_to_image(output)
+        buffered = io.BytesIO()
+        sr_image.save(buffered, format="PNG")
+        sr_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+        return ImageResponse(sr_image=sr_base64)
     except Exception as e:
         return {"error": str(e)}
+
