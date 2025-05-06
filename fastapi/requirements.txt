@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pillow
+torch
+torchvision
+torchaudio
+transformers
+git+https://github.com/geetu040/transformers.git@depth-pro-projects#egg=transformers
