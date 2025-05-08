@@ -3,7 +3,7 @@ volumes:
 
 services:
   extract-data:
-    container_name: etl_extract_data
+    container_name: etl_extract_div2k
     image: python:3.11
     user: root
     volumes:
@@ -11,16 +11,17 @@ services:
     working_dir: /data
     command: >
       bash -c "set -e
+               apt-get update && apt-get install -y unzip curl
                mkdir -p div2k
                cd div2k
-               curl -L -o div2k.zip https://data.vision.ee.ethz.ch/cvl/DIV2K/DIV2K_train_HR.zip
+               curl -L -o div2k.zip https://www.kaggle.com/api/v1/datasets/download/soumikrakshit/div2k-high-resolution-images
                unzip -q div2k.zip && rm div2k.zip
                echo '>>> DIV2K downloaded and extracted'
                ls -lhR .
       "
 
   extract-test-data:
-    container_name: etl_download_urban100
+    container_name: etl_extract_urban100
     image: python:3.11
     user: root
     volumes:
@@ -28,6 +29,7 @@ services:
     working_dir: /data
     command: >
       bash -c "set -e
+               apt-get update && apt-get install -y unzip curl
                mkdir -p urban100
                cd urban100
                curl -L -o urban100.zip https://www.kaggle.com/api/v1/datasets/download/harshraone/urban100
@@ -45,14 +47,18 @@ services:
     entrypoint: []
     command: >
       bash -e <<\EOF
-        mkdir -p SR/div2k/{train,lr,validation}
-        mkdir -p SR/test/urban100
+        mkdir -p SR/div2k/train
+        mkdir -p SR/div2k/validation
+        mkdir -p SR/test/urban100/lr
+        mkdir -p SR/test/urban100/hr
 
-        # move DIV2K HR (adjust if needed)
+        # move DIV2K data
         mv div2k/DIV2K_train_HR/* SR/div2k/train/
+        mv div2k/DIV2K_valid_HR/* SR/div2k/validation/
 
         # move Urban100
-        mv urban100/* SR/test/urban100/
+        mv "urban100/Urban 100/X4 Urban100/X4/LOW x4 URban100"/* SR/test/urban100/lr/
+        mv "urban100/Urban 100/X4 Urban100/X4/HIGH x4 URban100"/* SR/test/urban100/hr/
 
         echo '>>> Final SR directory structure:'
         ls -lhR SR
@@ -85,3 +91,4 @@ services:
 
         echo "Done! Uploaded structure:"
         rclone lsd chi_tacc:$RCLONE_CONTAINER
+
