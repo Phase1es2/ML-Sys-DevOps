@@ -3,7 +3,7 @@ volumes:
 
 services:
   extract-data:
-    container_name: etl_extract_data
+    container_name: etl_extract_data_div2k
     image: python:3.11
     user: root
     volumes:
@@ -29,7 +29,7 @@ services:
                ls -lhR /data
       "
   extract-test-data:
-    container_name: etl_download_urban100
+    container_name: etl_extract_data_urban100
     image: python:3.11
     user: root
     volumes:

@@ -43,6 +43,7 @@ services:
       POSTGRES_DB: mlflowdb
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - /mnt/object:/mnt/object:ro
 
 volumes:
   minio_data:

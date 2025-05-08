@@ -1,0 +1,87 @@
+volumes:
+  sr:
+
+services:
+  extract-data:
+    container_name: etl_extract_data
+    image: python:3.11
+    user: root
+    volumes:
+      - sr:/data
+    working_dir: /data
+    command: >
+      bash -c "set -e
+               mkdir -p div2k
+               cd div2k
+               curl -L -o div2k.zip https://data.vision.ee.ethz.ch/cvl/DIV2K/DIV2K_train_HR.zip
+               unzip -q div2k.zip && rm div2k.zip
+               echo '>>> DIV2K downloaded and extracted'
+               ls -lhR .
+      "
+
+  extract-test-data:
+    container_name: etl_download_urban100
+    image: python:3.11
+    user: root
+    volumes:
+      - sr:/data
+    working_dir: /data
+    command: >
+      bash -c "set -e
+               mkdir -p urban100
+               cd urban100
+               curl -L -o urban100.zip https://www.kaggle.com/api/v1/datasets/download/harshraone/urban100
+               unzip -q urban100.zip && rm urban100.zip
+               echo '>>> Urban100 downloaded and extracted'
+               ls -lhR .
+      "
+
+  transform-data:
+    image: python:3.11
+    user: root
+    volumes:
+      - sr:/data
+    working_dir: /data
+    entrypoint: []
+    command: >
+      bash -e <<\EOF
+        mkdir -p SR/div2k/{train,lr,validation}
+        mkdir -p SR/test/urban100
+
+        # move DIV2K HR (adjust if needed)
+        mv div2k/DIV2K_train_HR/* SR/div2k/train/
+
+        # move Urban100
+        mv urban100/* SR/test/urban100/
+
+        echo '>>> Final SR directory structure:'
+        ls -lhR SR
+      EOF
+
+  load-data:
+    container_name: etl_load_data
+    image: rclone/rclone:latest
+    volumes:
+      - sr:/data
+      - ~/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf:ro
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        if [ -z "$RCLONE_CONTAINER" ]; then
+          echo "ERROR: RCLONE_CONTAINER is not set"
+          exit 1
+        fi
+        echo "Cleaning existing contents in object store..."
+        rclone delete chi_tacc:$RCLONE_CONTAINER --rmdirs || true
+
+        echo "Uploading..."
+        rclone copy /data/SR chi_tacc:$RCLONE_CONTAINER \
+          --progress \
+          --transfers=32 \
+          --checkers=16 \
+          --multi-thread-streams=4 \
+          --fast-list
+
+        echo "Done! Uploaded structure:"
+        rclone lsd chi_tacc:$RCLONE_CONTAINER
