@@ -195,4 +195,19 @@ optional "difficulty" points you are attempting. -->
 - **Automated Testing:** 95%+ coverage targeted.
 - **Deployment Triggers:** Any new model version must pass all CI/CD checks before going live.
 
+### Related Work
 
+Single image super-resolution has been extensively studied in recent years. For example, the NTIRE 2017 challenge introduced standardized datasets and baselines for SISR [1, 2]. Follow-up work in 2018 extended the benchmarks and reported improved results [3].
+
+### References
+#### Dataset
+
+[1] Agustsson, E., & Timofte, R. (2017). NTIRE 2017 Challenge on Single Image Super-Resolution: Dataset and Study. CVPR Workshops.
+
+[2] Timofte, R., Agustsson, E., Van Gool, L., Yang, M.-H., Zhang, L., Lim, B., et al. (2017). NTIRE 2017 Challenge on Single Image Super-Resolution: Methods and Results. CVPR Workshops.
+
+[3] Timofte, R., Gu, S., Wu, J., Van Gool, L., Zhang, L., Yang, M.-H., Haris, M., et al. (2018). NTIRE 2018 Challenge on Single Image Super-Resolution: Methods and Results. CVPR Workshops.
+
+[4] Ignatov, A., Timofte, R., et al. (2019). PIRM Challenge on Perceptual Image Enhancement on Smartphones: Report. ECCV Workshops.
+
+[5] Huang, J.-B., Singh, A., & Ahuja, N. (2015). Single Image Super-Resolution From Transformed Self-Exemplars. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 5197–5206.
