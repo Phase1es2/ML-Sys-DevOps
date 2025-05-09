@@ -54,7 +54,7 @@ services:
     user: root
     volumes:
       - sr:/data
-    working_dir: /data
+    working_dir: /data/SR
     # clear any entrypoint so we get bash
     entrypoint: []
     command: >
