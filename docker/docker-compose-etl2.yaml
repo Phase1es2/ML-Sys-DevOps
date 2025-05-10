@@ -89,11 +89,9 @@ services:
         mv "../urban100/Urban 100/X4 Urban100/X4/LOW x4 URban100"/* test/urban100_x4/lr/
         mv "../urban100/Urban 100/X4 Urban100/X4/HIGH x4 URban100"/* test/urban100_x4/hr/
 
-        # BSD100 X2
+        # BSD100
         mv ../bsd100/X2/LOW/* eval/bsd100_x2/lr/
         mv ../bsd100/X2/HIGH/* eval/bsd100_x2/hr/
-
-        # BSD100 X4
         mv ../bsd100/X4/LOW/* eval/bsd100_x4/lr/
         mv ../bsd100/X4/HIGH/* eval/bsd100_x4/hr/
 
