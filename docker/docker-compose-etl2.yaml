@@ -10,15 +10,14 @@ services:
       - sr:/data
     working_dir: /data
     command: >
-      bash -c "set -e
-               apt-get update && apt-get install -y unzip curl
-               mkdir -p div2k
-               cd div2k
-               curl -L -o div2k.zip https://www.kaggle.com/api/v1/datasets/download/soumikrakshit/div2k-high-resolution-images
-               unzip -q div2k.zip && rm div2k.zip
-               echo '>>> DIV2K downloaded and extracted'
-               ls -lhR .
-      "
+      bash -c "set -e &&
+               apt-get update && apt-get install -y unzip curl &&
+               mkdir -p div2k &&
+               cd div2k &&
+               curl -L -o div2k.zip https://www.kaggle.com/api/v1/datasets/download/soumikrakshit/div2k-high-resolution-images &&
+               unzip -q div2k.zip && rm div2k.zip &&
+               echo '>>> DIV2K downloaded and extracted' &&
+               ls -lhR ."
 
   extract-test-data:
     container_name: etl_extract_urban100
@@ -28,40 +27,78 @@ services:
       - sr:/data
     working_dir: /data
     command: >
-      bash -c "set -e
-               apt-get update && apt-get install -y unzip curl
-               mkdir -p urban100
-               cd urban100
-               curl -L -o urban100.zip https://www.kaggle.com/api/v1/datasets/download/harshraone/urban100
-               unzip -q urban100.zip && rm urban100.zip
-               echo '>>> Urban100 downloaded and extracted'
-               ls -lhR .
-      "
+      bash -c "set -e &&
+               apt-get update && apt-get install -y unzip curl &&
+               mkdir -p urban100 &&
+               cd urban100 &&
+               curl -L -o urban100.zip https://www.kaggle.com/api/v1/datasets/download/harshraone/urban100 &&
+               unzip -q urban100.zip && rm urban100.zip &&
+               echo '>>> Urban100 downloaded and extracted' &&
+               ls -lhR ."
+extract-bsd100:
+  container_name: etl_extract_bsd100
+  image: python:3.11
+  user: root
+  volumes:
+    - sr:/data
+  working_dir: /data
+  command: >
+    bash -c "set -e &&
+             apt-get update && apt-get install -y unzip curl &&
+             mkdir -p bsd100 &&
+             cd bsd100 &&
+             curl -L -o bsd100.zip https://www.kaggle.com/api/v1/datasets/download/asilva1691/bsd100 &&
+             unzip -q bsd100.zip && rm bsd100.zip &&
+             echo '>>> BSD100 downloaded and extracted' &&
+             ls -lhR ."
 
   transform-data:
+    container_name: etl_transform_sr
     image: python:3.11
     user: root
     volumes:
       - sr:/data
-    working_dir: /data
+    working_dir: /data/SR
     entrypoint: []
     command: >
-      bash -e <<\EOF
-        mkdir -p SR/div2k/train
-        mkdir -p SR/div2k/validation
-        mkdir -p SR/test/urban100/lr
-        mkdir -p SR/test/urban100/hr
+      bash -e <<'EOF'
+        # Create directories
+        mkdir -p div2k/train
+        mkdir -p div2k/validation
 
-        # move DIV2K data
-        mv div2k/DIV2K_train_HR/* SR/div2k/train/
-        mv div2k/DIV2K_valid_HR/* SR/div2k/validation/
+        mkdir -p test/urban100_x2/lr
+        mkdir -p test/urban100_x2/hr
+        mkdir -p test/urban100_x4/lr
+        mkdir -p test/urban100_x4/hr
 
-        # move Urban100
-        mv "urban100/Urban 100/X4 Urban100/X4/LOW x4 URban100"/* SR/test/urban100/lr/
-        mv "urban100/Urban 100/X4 Urban100/X4/HIGH x4 URban100"/* SR/test/urban100/hr/
+        mkdir -p eval/bsd100_x2/lr
+        mkdir -p eval/bsd100_x2/hr
+
+        mkdir -p eval/bsd100_x4/lr
+        mkdir -p eval/bsd100_x4/hr
+
+        # Move DIV2K data
+        mv ../div2k/DIV2K_train_HR/* div2k/train/
+        mv ../div2k/DIV2K_valid_HR/* div2k/validation/
+
+        # Move Urban100 X2
+        mv "../urban100/X2 Urban100/X2/LOW X2 Urban"/* test/urban100_x2/lr/
+        mv "../urban100/X2 Urban100/X2/HIGH X2 Urban"/* test/urban100_x2/hr/
+
+        # Move Urban100 X4
+        mv "../urban100/X4 Urban100/X4/LOW x4 URban100"/* test/urban100_x4/lr/
+        mv "../urban100/X4 Urban100/X4/HIGH x4 URban100"/* test/urban100_x4/hr/
+
+        # BSD100 X2
+        mv "../bsd100/X2/LOW"/* eval/bsd100_x2/lr/
+        mv "../bsd100/X2/HIGH"/* eval/bsd100_x2/hr/
+
+        # BSD100 X4
+        mv "../bsd100/X4/LOW"/* eval/bsd100_x4/lr/
+        mv "../bsd100/X4/HIGH"/* eval/bsd100_x4/hr/
 
         echo '>>> Final SR directory structure:'
-        ls -lhR SR
+        ls -lhR .
       EOF
 
   load-data:
@@ -91,4 +128,3 @@ services:
 
         echo "Done! Uploaded structure:"
         rclone lsd chi_tacc:$RCLONE_CONTAINER
-
