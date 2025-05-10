@@ -15,7 +15,7 @@ services:
                mkdir -p div2k &&
                cd div2k &&
                curl -L -o div2k.zip https://www.kaggle.com/api/v1/datasets/download/soumikrakshit/div2k-high-resolution-images &&
-               unzip -q div2k.zip && rm div2k.zip &&
+               unzip -oq div2k.zip && rm div2k.zip &&
                echo '>>> DIV2K downloaded and extracted' &&
                ls -lhR ."
 
@@ -32,7 +32,7 @@ services:
                mkdir -p urban100 &&
                cd urban100 &&
                curl -L -o urban100.zip https://www.kaggle.com/api/v1/datasets/download/harshraone/urban100 &&
-               unzip -q urban100.zip && rm urban100.zip &&
+               unzip -oq urban100.zip && rm urban100.zip &&
                echo '>>> Urban100 downloaded and extracted' &&
                ls -lhR ."
   extract-bsd100:
@@ -48,7 +48,7 @@ services:
               mkdir -p bsd100 &&
               cd bsd100 &&
               curl -L -o bsd100.zip https://www.kaggle.com/api/v1/datasets/download/asilva1691/bsd100 &&
-              unzip -q bsd100.zip && rm bsd100.zip &&
+              unzip -oq bsd100.zip && rm bsd100.zip &&
               echo '>>> BSD100 downloaded and extracted' &&
               ls -lhR ."
 
