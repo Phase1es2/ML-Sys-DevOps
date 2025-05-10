@@ -73,7 +73,6 @@ services:
 
         mkdir -p eval/bsd100_x2/lr
         mkdir -p eval/bsd100_x2/hr
-
         mkdir -p eval/bsd100_x4/lr
         mkdir -p eval/bsd100_x4/hr
 
@@ -81,19 +80,27 @@ services:
         mv ../div2k/DIV2K_train_HR/* div2k/train/
         mv ../div2k/DIV2K_valid_HR/* div2k/validation/
 
+        # Debug: List urban100 folders
+        echo "Listing urban100 contents:"
+        find ../urban100 -type d
+
         # Move Urban100 X2
-        mv "../urban100/Urban 100/X2 Urban100/X2/LOW X2 Urban"/* test/urban100_x2/lr/
-        mv "../urban100/Urban 100/X2 Urban100/X2/HIGH X2 Urban"/* test/urban100_x2/hr/
+        mv ../urban100/*X2*/LR*/* test/urban100_x2/lr/ || echo "Urban100 X2 LR not found"
+        mv ../urban100/*X2*/HR*/* test/urban100_x2/hr/ || echo "Urban100 X2 HR not found"
 
         # Move Urban100 X4
-        mv "../urban100/Urban 100/X4 Urban100/X4/LOW x4 URban100"/* test/urban100_x4/lr/
-        mv "../urban100/Urban 100/X4 Urban100/X4/HIGH x4 URban100"/* test/urban100_x4/hr/
+        mv ../urban100/*X4*/LR*/* test/urban100_x4/lr/ || echo "Urban100 X4 LR not found"
+        mv ../urban100/*X4*/HR*/* test/urban100_x4/hr/ || echo "Urban100 X4 HR not found"
 
-        # BSD100
-        mv ../bsd100/X2/LOW/* eval/bsd100_x2/lr/
-        mv ../bsd100/X2/HIGH/* eval/bsd100_x2/hr/
-        mv ../bsd100/X4/LOW/* eval/bsd100_x4/lr/
-        mv ../bsd100/X4/HIGH/* eval/bsd100_x4/hr/
+        # Debug: List bsd100 folders
+        echo "Listing bsd100 contents:"
+        find ../bsd100 -type d
+
+        # Move BSD100 data
+        mv ../bsd100/X2/LOW/* eval/bsd100_x2/lr/ || echo "BSD100 X2 LR not found"
+        mv ../bsd100/X2/HIGH/* eval/bsd100_x2/hr/ || echo "BSD100 X2 HR not found"
+        mv ../bsd100/X4/LOW/* eval/bsd100_x4/lr/ || echo "BSD100 X4 LR not found"
+        mv ../bsd100/X4/HIGH/* eval/bsd100_x4/hr/ || echo "BSD100 X4 HR not found"
 
         echo '>>> Final SR directory structure:'
         ls -lhR .
