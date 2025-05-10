@@ -1,2 +1,4 @@
 *.DS_Store
 fastapi/*.ckpt
+e -i HEAD~3
+*.swp
