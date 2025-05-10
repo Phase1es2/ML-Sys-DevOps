@@ -52,54 +52,54 @@ services:
               echo '>>> BSD100 downloaded and extracted' &&
               ls -lhR ."
 
-transform-data:
-  container_name: etl_transform_sr
-  image: python:3.11
-  user: root
-  volumes:
-    - sr:/data
-  working_dir: /data/SR
-  entrypoint: []
-  command: >
-    bash -e <<'EOF'
-      # Create directories
-      mkdir -p div2k/train
-      mkdir -p div2k/validation
+  transform-data:
+    container_name: etl_transform_sr
+    image: python:3.11
+    user: root
+    volumes:
+      - sr:/data
+    working_dir: /data/SR
+    entrypoint: []
+    command: >
+      bash -e <<'EOF'
+        # Create directories
+        mkdir -p div2k/train
+        mkdir -p div2k/validation
 
-      mkdir -p test/urban100_x2/lr
-      mkdir -p test/urban100_x2/hr
-      mkdir -p test/urban100_x4/lr
-      mkdir -p test/urban100_x4/hr
+        mkdir -p test/urban100_x2/lr
+        mkdir -p test/urban100_x2/hr
+        mkdir -p test/urban100_x4/lr
+        mkdir -p test/urban100_x4/hr
 
-      mkdir -p eval/bsd100_x2/lr
-      mkdir -p eval/bsd100_x2/hr
+        mkdir -p eval/bsd100_x2/lr
+        mkdir -p eval/bsd100_x2/hr
 
-      mkdir -p eval/bsd100_x4/lr
-      mkdir -p eval/bsd100_x4/hr
+        mkdir -p eval/bsd100_x4/lr
+        mkdir -p eval/bsd100_x4/hr
 
-      # Move DIV2K data
-      mv ../div2k/DIV2K_train_HR/* div2k/train/
-      mv ../div2k/DIV2K_valid_HR/* div2k/validation/
+        # Move DIV2K data
+        mv ../div2k/DIV2K_train_HR/* div2k/train/
+        mv ../div2k/DIV2K_valid_HR/* div2k/validation/
 
-      # Move Urban100 X2
-      mv "../urban100/Urban 100/X2 Urban100/X2/LOW X2 Urban"/* test/urban100_x2/lr/
-      mv "../urban100/Urban 100/X2 Urban100/X2/HIGH X2 Urban"/* test/urban100_x2/hr/
+        # Move Urban100 X2
+        mv "../urban100/Urban 100/X2 Urban100/X2/LOW X2 Urban"/* test/urban100_x2/lr/
+        mv "../urban100/Urban 100/X2 Urban100/X2/HIGH X2 Urban"/* test/urban100_x2/hr/
 
-      # Move Urban100 X4
-      mv "../urban100/Urban 100/X4 Urban100/X4/LOW x4 URban100"/* test/urban100_x4/lr/
-      mv "../urban100/Urban 100/X4 Urban100/X4/HIGH x4 URban100"/* test/urban100_x4/hr/
+        # Move Urban100 X4
+        mv "../urban100/Urban 100/X4 Urban100/X4/LOW x4 URban100"/* test/urban100_x4/lr/
+        mv "../urban100/Urban 100/X4 Urban100/X4/HIGH x4 URban100"/* test/urban100_x4/hr/
 
-      # BSD100 X2
-      mv ../bsd100/X2/LOW/* eval/bsd100_x2/lr/
-      mv ../bsd100/X2/HIGH/* eval/bsd100_x2/hr/
+        # BSD100 X2
+        mv ../bsd100/X2/LOW/* eval/bsd100_x2/lr/
+        mv ../bsd100/X2/HIGH/* eval/bsd100_x2/hr/
 
-      # BSD100 X4
-      mv ../bsd100/X4/LOW/* eval/bsd100_x4/lr/
-      mv ../bsd100/X4/HIGH/* eval/bsd100_x4/hr/
+        # BSD100 X4
+        mv ../bsd100/X4/LOW/* eval/bsd100_x4/lr/
+        mv ../bsd100/X4/HIGH/* eval/bsd100_x4/hr/
 
-      echo '>>> Final SR directory structure:'
-      ls -lhR .
-    EOF
+        echo '>>> Final SR directory structure:'
+        ls -lhR .
+      EOF
 
   load-data:
     container_name: etl_load_data
