@@ -1,0 +1,50 @@
+[33m1fada1e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Add Dockerfile for Jupyter + Torch + MLflow on ROCm
+[33mf924687[m Revert "Update chi_training_A100.ipynb"
+[33m9e22745[m Update chi_training_A100.ipynb
+[33mec340d9[m Update MLflow deployment config
+[33mb938616[m Update FastAPI main.py and DepthPro inference script
+[33mc92cb3c[m Add FastAPI deployment with docker-compose-fastapi.yaml
+[33m04d94a0[m Add MLflow deployment config
+[33m33a9bf3[m shell script setup mnt_obj_store.sh
+[33ma2d4338[m load-data
+[33m9ee9da6[m load-data
+[33m7088734[m change transform
+[33m29bd03b[m change transform
+[33m1903a08[m change transform
+[33m93814d7[m change transform
+[33m8aae84b[m change transform
+[33m1bd48b6[m change source
+[33m5d17647[m change source
+[33m351af4d[m kaggle json
+[33md8fde9f[m e
+[33m2971985[m fix etl issue
+[33m26f700a[m test datapiple etl
+[33ma10eca8[m training env setting A100, and MLflow
+[33m439391c[m fix tranining code issue
+[33mbc8dada[m fix tranining code issue
+[33m81f25b4[m fix tranining code issue
+[33me661383[m fix the training code issue
+[33mc057698[m jupyter scipt, minio, prometheus, postgres
+[33ma8ca2d7[m version_0 model training, gitignore
+[33mb88ab98[m Delete img/Design Structure.png
+[33m9a28a40[m Add files via upload
+[33m4aec696[m Delete img/Design_Structure.png
+[33m35f7582[m Add files via upload
+[33md2eea53[m Delete img/Design_Structure.jpg
+[33m8825aa1[m Update README.md
+[33m640202d[m Add files via upload
+[33mba0cde4[m Delete img/README.md
+[33m9a40574[m Upload new Design_Structure.jpg to img folder
+[33m8348089[m Create README.md
+[33m68cbc6c[m Delete img/Design_Structure.jpg
+[33m011b344[m Update README.md
+[33m1acf9be[m Update README.md
+[33m1dac39a[m Update README.md
+[33m36df160[m add model and data size and potential customers
+[33mfb5eb23[m add resource CIFAR-10
+[33m6d2d678[m fix link issue
+[33md008923[m add Link to col commits in repo
+[33m0ac59be[m project proposal
+[33m73e495c[m prject proposal template
+[33m0bb4ab9[m Update README.md
+[33m4c0ee37[m first commit
