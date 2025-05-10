@@ -35,22 +35,22 @@ services:
                unzip -q urban100.zip && rm urban100.zip &&
                echo '>>> Urban100 downloaded and extracted' &&
                ls -lhR ."
-extract-bsd100:
-  container_name: etl_extract_bsd100
-  image: python:3.11
-  user: root
-  volumes:
-    - sr:/data
-  working_dir: /data
-  command: >
-    bash -c "set -e &&
-             apt-get update && apt-get install -y unzip curl &&
-             mkdir -p bsd100 &&
-             cd bsd100 &&
-             curl -L -o bsd100.zip https://www.kaggle.com/api/v1/datasets/download/asilva1691/bsd100 &&
-             unzip -q bsd100.zip && rm bsd100.zip &&
-             echo '>>> BSD100 downloaded and extracted' &&
-             ls -lhR ."
+  extract-bsd100:
+    container_name: etl_extract_bsd100
+    image: python:3.11
+    user: root
+    volumes:
+      - sr:/data
+    working_dir: /data
+    command: >
+      bash -c "set -e &&
+              apt-get update && apt-get install -y unzip curl &&
+              mkdir -p bsd100 &&
+              cd bsd100 &&
+              curl -L -o bsd100.zip https://www.kaggle.com/api/v1/datasets/download/asilva1691/bsd100 &&
+              unzip -q bsd100.zip && rm bsd100.zip &&
+              echo '>>> BSD100 downloaded and extracted' &&
+              ls -lhR ."
 
   transform-data:
     container_name: etl_transform_sr
