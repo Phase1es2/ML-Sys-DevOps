@@ -2,6 +2,10 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: 'mlflow'
     static_configs:
-      - targets: ['prometheus:9090']
+      - targets: ['mlflow:8000']
+
+  - job_name: 'jupyter'
+    static_configs:
+      - targets: ['jupyter:8888']
