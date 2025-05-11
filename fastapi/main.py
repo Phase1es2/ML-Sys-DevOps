@@ -55,7 +55,7 @@ class DepthProForSuperResolution(torch.nn.Module):
 # Load model from Lightning .ckpt
 
 
-MODEL_PATH = "/mnt/block/minio_data/temp_model/model-epoch\=07-val_psnr\=24.88.ckpt"
+MODEL_PATH = "/mnt/block/minio_data/temp_model/model-epoch=07-val_psnr=24.88.ckpt"
 checkpoint = torch.load(MODEL_PATH, map_location="cpu")
 
 state_dict = checkpoint["state_dict"]
