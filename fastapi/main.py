@@ -97,4 +97,9 @@ async def predict(file: UploadFile = File(...)):
 
 @app.get("/", response_class=HTMLResponse)
 async def frontend():
-    return FileResponse(Path(__file__).parent / "frontend" / "index.html")
+    index_path = Path.cwd() / "frontend" / "index.html"
+    try:
+        return FileResponse(index_path)
+    except Exception as e:
+        print(f"❌ Error loading index.html: {e}")
+        return HTMLResponse(f"<h1>Error loading index.html</h1><p>{e}</p>", status_code=500)
