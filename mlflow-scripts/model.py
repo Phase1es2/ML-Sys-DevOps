@@ -1,4 +1,3 @@
-# model.py
 import os
 import torch
 import torch.nn as nn
@@ -7,6 +6,7 @@ import lightning as L
 from torchmetrics.audio import SignalNoiseRatio
 from torchmetrics.image import PeakSignalNoiseRatio, StructuralSimilarityIndexMeasure
 from transformers import DepthProConfig, DepthProForDepthEstimation
+
 
 class DepthProForSuperResolution(nn.Module):
     def __init__(self, depthpro_for_depth_estimation):
@@ -39,6 +39,7 @@ class DepthProForSuperResolution(nn.Module):
         x = x + fused_hidden_state
         x = self.head(x)
         return x
+
 
 class LightningModel(L.LightningModule):
     def __init__(self, depthpro_for_depth_estimation):
@@ -75,7 +76,6 @@ class LightningModel(L.LightningModule):
         self.log("val_ssim", ssim_value, prog_bar=True)
         self.log("val_snr", snr_value, prog_bar=True)
 
-        # Save SR image
         if batch_idx == 0 and hasattr(self.logger, "save_dir"):
             sr_image = sr[0].detach().cpu().permute(1, 2, 0).float().numpy()
             sr_image = sr_image * 0.5 + 0.5
@@ -115,22 +115,26 @@ class LightningModel(L.LightningModule):
                 num_params += 1
         return total_grad_norm / num_params if num_params > 0 else 0
 
+
 def get_depthpro_model(args):
     patch_size = args.patch_size
     config = DepthProConfig(
         patch_size=patch_size,
         patch_embeddings_size=4,
-        num_hidden_layers=12,
-        intermediate_hook_ids=[11, 8, 7, 5],
-        intermediate_feature_dims=[256] * 4,
+        num_hidden_layers=4,  # ✅ 缩减 Transformer 层数
+        intermediate_hook_ids=[3, 2, 1, 0],
+        intermediate_feature_dims=[128] * 4,  # ✅ 降低特征维度
         scaled_images_ratios=[0.5, 1.0],
         scaled_images_overlap_ratios=[0.5, 0.25],
-        scaled_images_feature_dims=[1024, 512],
-        use_fov_model=False,
+        scaled_images_feature_dims=[512, 256],  # ✅ 缩小图像通道维度
+        fusion_hidden_size=128,  # ✅ 融合层维度降低
+        num_channels=3  # RGB 图像
     )
     model, _ = DepthProForDepthEstimation.from_pretrained(
-        "geetu040/DepthPro", revision="project", config=config,
-        ignore_mismatched_sizes=True, output_loading_info=True
+        "geetu040/DepthPro",
+        revision="project",
+        config=config,
+        ignore_mismatched_sizes=True,
+        output_loading_info=True
     )
     return model
-
