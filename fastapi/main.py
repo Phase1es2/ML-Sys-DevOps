@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import StreamingResponse, HTMLResponse, FileResponse
+from fastapi.responses import StreamingResponse, HTMLResponse, FileResponse,  JSONResponse
 from PIL import Image
 import torch
 from transformers import DepthProConfig, DepthProImageProcessorFast, DepthProForDepthEstimation
@@ -95,6 +95,6 @@ async def predict(file: UploadFile = File(...)):
     buf.seek(0)
     return StreamingResponse(buf, media_type="image/png")
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/", response_class=JSONResponse)
 async def frontend():
-    return FileResponse(Path(__file__).parent / "frontend" / "index.html")
+    return {"message": "FastAPI is up and running"}
