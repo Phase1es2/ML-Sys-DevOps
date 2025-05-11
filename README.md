@@ -39,7 +39,7 @@ Explain how you provision and configure each system component.
 To enable persistent storage access during training and inference, we completed the following steps:
 
 1. **Provisioned Storage:**
-   - Created one **40 GB block storage volume** (used for storing model checkpoints, e.g., `.ckpt` files).
+   - Created one **40 GB block storage volume** and mounted it at `/mnt/block/` on `node1-cloud-project45`.
    - Created one **object storage bucket** (used for storing datasets like Urban100 and BSD100).
 
 2. **Installed and Configured `rclone`:**
@@ -60,7 +60,8 @@ To enable persistent storage access during training and inference, we completed 
 
 - **Training dataset:** DIV2K  
 - **Validation & Evaluation datasets:** BSD100, Urban100  
-- **Example sample(s):** `../img/004.png`
+- **Example sample(s):**  
+  ![Sample](img/0004.png)
 
 The DIV2K dataset contains **1,000 high-resolution (2K) images**, split into:
 
