@@ -75,7 +75,7 @@ def main(args):
             print(f"✅ Best model saved at: {checkpoint_callback.best_model_path}")
 
             # ✅ 保存为精简版 .pth（只包含模型参数）
-            torch.save(model.model.state_dict(), "best_model.pth")
+            torch.save(model.state_dict(), "best_model.pth")
             mlflow.log_artifact("best_model.pth", artifact_path="model")
         else:
             print("⚠️ No checkpoint was saved because val_psnr metric was not available.")
