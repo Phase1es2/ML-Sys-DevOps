@@ -1,0 +1,18 @@
+FROM quay.io/jupyter/pytorch-notebook:latest
+
+USER ${NB_UID}
+
+# Install required packages for training and job submission
+# - lightning: for PyTorch Lightning-based model training
+# - ray: to enable Ray job submission from notebook
+# - mlflow: to log and track experiments
+# - matplotlib: to visualize training metrics and results
+# - opencv-python: to display and manipulate images
+RUN pip install --pre --no-cache-dir \
+    lightning \
+    ray \
+    mlflow \
+    matplotlib \
+    opencv-python && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
