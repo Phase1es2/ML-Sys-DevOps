@@ -71,8 +71,8 @@ class Urban100Dataset(Dataset):
     def configure(self):
         lr_images_path = os.path.join(self.base_path, self.lr_path)
         hr_images_path = os.path.join(self.base_path, self.hr_path)
-        lr_images_path = [os.path.join(lr_images_path, i) for i in os.listdir(lr_images_path)
-        hr_images_path = [os.path.join(hr_images_path, i) for i in os.listdir(hr_images_path)
+        lr_images_path = [os.path.join(lr_images_path, i) for i in os.listdir(lr_images_path)]
+        hr_images_path = [os.path.join(hr_images_path, i) for i in os.listdir(hr_images_path)]
         print(f"lr_images_path: {lr_images_path}")
         print(f"hr_images_path: {hr_images_path}")
         return lr_images_path, hr_images_path
