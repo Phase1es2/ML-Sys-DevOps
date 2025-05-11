@@ -8,7 +8,7 @@ URL = "http://localhost:5000/predict"  # Change if server is remote
 IMAGE_DIR = "/mnt/object/bsd100/bsd100/bicubic_2x/train/HR"
 
 # Output directory
-os.makedirs("inference_outputs", exist_ok=True)
+os.makedirs("../../inference_outputs", exist_ok=True)
 
 # Loop through images
 for filename in os.listdir(IMAGE_DIR):
