@@ -115,9 +115,11 @@ class LightningModel(L.LightningModule):
                 num_params += 1
         return total_grad_norm / num_params if num_params > 0 else 0
 
+    def forward(self, x):
+        return self.model(x)
 
-def get_depthpro_model(args):
-    patch_size = args.patch_size
+
+def get_depthpro_model(patch_size = 32):
     config = DepthProConfig(
         patch_size=patch_size,
         patch_embeddings_size=4,

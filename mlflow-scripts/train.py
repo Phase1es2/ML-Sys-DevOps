@@ -22,7 +22,7 @@ def main(args):
         gpu_info = os.popen("nvidia-smi").read()
         mlflow.log_text(gpu_info, "gpu-info.txt")
 
-        depthpro = get_depthpro_model(args)
+        depthpro = get_depthpro_model(args.patch_size)
         model = LightningModel(depthpro)
 
         train_loader, val_loader = get_dataloaders(args.batch_size)

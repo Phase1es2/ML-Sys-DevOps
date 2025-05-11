@@ -54,6 +54,50 @@ class Div2kDataset(Dataset):
             hr.thumbnail((self.hr_size, self.hr_size))
         return lr, hr
 
+
+class Urban100Dataset(Dataset):
+    """
+    Pytorch Dataset for Urban100 dataset.
+    """
+    base_path = "/mnt/object/urban100"
+    lr_path = 'Urban 100/X4 Urban100/X4/LOW x4 URban100'
+    hr_path = 'Urban 100/X4 Urban100/X4/HIGH x4 URban100'
+
+    def __init__(self):
+        lr_images_path, hr_images_path = self.configure()
+        self.lr_images_path = lr_images_path
+        self.hr_images_path = hr_images_path
+
+    def configure(self):
+        lr_images_path = os.path.join(self.base_path, self.lr_path)
+        hr_images_path = os.path.join(self.base_path, self.hr_path)
+        lr_images_path = [os.path.join(lr_images_path, i) for i in os.listdir(lr_images_path)
+        hr_images_path = [os.path.join(hr_images_path, i) for i in os.listdir(hr_images_path)
+        print(f"lr_images_path: {lr_images_path}")
+        print(f"hr_images_path: {hr_images_path}")
+        return lr_images_path, hr_images_path
+
+    def __len__(self):
+        """
+        Number of Images in the dataset.
+        """
+        return len(self.lr_images_path)
+
+    def __getitem__(self, idx):
+        """
+        Load and return the Low Resolution (lr) and High Resolution (hr) image.
+        """
+        lr = Image.open(self.lr_images_path[idx]).convert("RGB")
+        hr = Image.open(self.hr_images_path[idx]).convert("RGB")
+        return lr, hr
+        
+def collate_fn(samples):
+    lrs = [i[0] for i in samples]
+    hrs = [i[1] for i in samples]
+    lrs = processor(lrs, return_tensors="pt")['pixel_values']
+    hrs = processor(hrs, return_tensors="pt")['pixel_values']
+    return lrs, hrs
+
 def get_dataloaders(batch_size=BATCH_SIZE):
     train_dataset = Div2kDataset("train", lr_size=LR_SIZE, hr_size=HR_SIZE, keep_aspect_ratio=True)
     val_dataset = Div2kDataset("validation", lr_size=LR_SIZE, hr_size=HR_SIZE, keep_aspect_ratio=True)

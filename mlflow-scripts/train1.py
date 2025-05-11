@@ -13,7 +13,7 @@ def main(args):
     mlflow.set_tracking_uri("http://129.114.24.214:8000")
     mlflow.set_experiment(args.experiment_name)
 
-    model = LightningModel(get_depthpro_model(args))
+    model = LightningModel(get_depthpro_model(args.patch_size))
     train_loader, val_loader = get_dataloaders(args.batch_size)
 
     logger = CSVLogger("logs", name=args.run_name)
