@@ -59,7 +59,7 @@ class Urban100Dataset(Dataset):
     """
     Pytorch Dataset for Urban100 dataset.
     """
-    base_path = "/mnt/object/urban100"
+    base_path = "../dataset"
     lr_path = 'Urban 100/X4 Urban100/X4/LOW x4 URban100'
     hr_path = 'Urban 100/X4 Urban100/X4/HIGH x4 URban100'
 

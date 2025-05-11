@@ -14,15 +14,20 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy application code and requirements
-COPY . /app
+# Create tmpdir inside container with more space
+RUN mkdir -p /mnt/block/pip_tmp
+ENV TMPDIR=/mnt/block/pip_tmp
 
-# Install Python dependencies
+# Optionally set pip cache to larger disk
+ENV PIP_CACHE_DIR=/mnt/block/pip_cache
+
+# Copy app code and install dependencies
+COPY . /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Expose FastAPI default port
-EXPOSE 8000
+# Expose FastAPI port
+EXPOSE 8001
 
-# Run FastAPI server
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]

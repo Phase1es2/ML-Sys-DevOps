@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Super Resolution Upload</title>
+</head>
+<body>
+    <h2>Upload an Image for Super-Resolution</h2>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit">Upload</button>
+    </form>
+    <h3>Output Image:</h3>
+    <img id="output-img" style="max-width: 512px; border: 1px solid #ccc;" />
+    <script>
+        const form = document.getElementById("upload-form");
+        const outputImg = document.getElementById("output-img");
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch("/predict", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                alert("Upload failed.");
+                return;
+            }
+
+            const blob = await response.blob();
+            outputImg.src = URL.createObjectURL(blob);
+        };
+    </script>
+</body>
+</html>

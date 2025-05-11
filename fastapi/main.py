@@ -1,12 +1,12 @@
 from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, HTMLResponse, FileResponse
 from PIL import Image
 import torch
 from transformers import DepthProConfig, DepthProImageProcessorFast, DepthProForDepthEstimation
 import io
-
-from fastapi.responses import HTMLResponse
+import os
 from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
 app = FastAPI(title="Super-Resolution API", version="1.0.0")
 
@@ -53,7 +53,9 @@ class DepthProForSuperResolution(torch.nn.Module):
         return x
 
 # Load model from Lightning .ckpt
-MODEL_PATH = "/mnt/minio_data/temp_model/model-epoch=07-val_psnr=24.88.ckpt"
+
+
+MODEL_PATH = "/mnt/block/minio_data/temp_model/model-epoch=07-val_psnr=24.88.ckpt"
 checkpoint = torch.load(MODEL_PATH, map_location="cpu")
 
 state_dict = checkpoint["state_dict"]
@@ -95,41 +97,4 @@ async def predict(file: UploadFile = File(...)):
 
 @app.get("/", response_class=HTMLResponse)
 async def frontend():
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Super Resolution Upload</title>
-    </head>
-    <body>
-        <h2>Upload an Image for Super-Resolution</h2>
-        <form id="upload-form" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required />
-            <button type="submit">Upload</button>
-        </form>
-        <h3>Output Image:</h3>
-        <img id="output-img" style="max-width: 512px; border: 1px solid #ccc;" />
-        <script>
-            const form = document.getElementById("upload-form");
-            const outputImg = document.getElementById("output-img");
-
-            form.onsubmit = async (e) => {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const response = await fetch("/predict", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                if (!response.ok) {
-                    alert("Upload failed.");
-                    return;
-                }
-
-                const blob = await response.blob();
-                outputImg.src = URL.createObjectURL(blob);
-            };
-        </script>
-    </body>
-    </html>
-    """
+    return FileResponse(Path(__file__).parent / "frontend" / "index.html")

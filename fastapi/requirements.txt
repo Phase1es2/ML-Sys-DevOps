@@ -1,8 +1,11 @@
 fastapi
 uvicorn
 pillow
-torch
+
+# Use CPU-only PyTorch packages
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.7.0+cpu
 torchvision
 torchaudio
-transformers
+
 git+https://github.com/geetu040/transformers.git@depth-pro-projects#egg=transformers
