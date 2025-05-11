@@ -95,6 +95,6 @@ async def predict(file: UploadFile = File(...)):
     buf.seek(0)
     return StreamingResponse(buf, media_type="image/png")
 
-@app.get("/", response_class=JSONResponse)
+@app.get("/", response_class=HTMLResponse)
 async def frontend():
-    return {"message": "FastAPI is up and running"}
+    return FileResponse(Path(__file__).parent / "frontend" / "index.html")
