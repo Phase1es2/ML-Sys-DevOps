@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 pillow
-
+python-multipart
 # Use CPU-only PyTorch packages
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.7.0+cpu

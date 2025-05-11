@@ -55,7 +55,7 @@ class DepthProForSuperResolution(torch.nn.Module):
 # Load model from Lightning .ckpt
 
 
-MODEL_PATH = "/mnt/block/minio_data/temp_model/model-epoch=07-val_psnr=24.88.ckpt"
+MODEL_PATH = "model-epoch=07-val_psnr=24.88.ckpt"
 checkpoint = torch.load(MODEL_PATH, map_location="cpu")
 
 state_dict = checkpoint["state_dict"]
@@ -103,7 +103,7 @@ async def frontend():
     except Exception as e:
         print(f"❌ Error loading index.html: {e}")
         return HTMLResponse(f"<h1>Error loading index.html</h1><p>{e}</p>", status_code=500)
-    
+
 @app.get("/test")
 async def test():
     return {"status": "OK"}
