@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: fastapi_superres
     ports:
-      - "5000:8001"
+      - "5000:5000"
     volumes:
       - ../fastapi:/app
       - /mnt/block:/mnt/block
