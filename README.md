@@ -388,9 +388,62 @@ This setup enables automated, batch-style inference suitable for production pipe
 
 ## 📈 Unit 6 & 7: Online Evaluation & Monitoring
 
-### 🔍 Monitoring in Production
-- Monitoring dashboards: Prometheus, Grafana
-- Example feedback loop (e.g., user clicks → retraining signal)
+## 🔍 Monitoring in Production
+
+Our deployed image super-resolution model is monitored using **Prometheus** and **Grafana**, and includes a basic feedback loop to simulate production-grade observability and model improvement.
+
+---
+
+### ✅ Monitoring Dashboards: Prometheus + Grafana
+
+We use [`prometheus_fastapi_instrumentator`](https://github.com/trallard/prometheus-fastapi-instrumentator) to instrument our FastAPI server.
+
+- **Metrics Endpoint**: exposed at `/metrics`
+- **Prometheus** scrapes metrics every 5 seconds from `fastapi_server:8000`
+- **Grafana** connects to Prometheus at `http://prometheus:9090` to visualize:
+
+#### Key Metrics
+
+- `http_requests_total`: total number of HTTP requests
+- `predict_requests_total`: custom counter for `/predict` route
+- `predict_request_duration_seconds`: histogram of model inference latency
+
+#### Sample Grafana Panels
+
+- 📈 Number of predictions over time  
+- ⏱️ Average latency of predictions  
+- 🔔 Alert thresholds for latency or error rates (future)
+
+---
+
+### 🔁 Feedback Loop: Closing the ML Lifecycle
+
+The frontend interface enables a simple feedback mechanism:
+
+1. Users upload a low-resolution image.
+2. The image is sent to the FastAPI server via `/predict`.
+3. A high-resolution output is returned and previewed in-browser.
+4. Users can optionally provide feedback (👍 or 👎).
+
+#### Feedback Usage
+
+- Logged to JSONL or a database
+- Can be used to:
+  - Collect failure cases
+  - Create a retraining dataset
+  - Trigger fine-tuning pipelines
+
+> **Cycle**: _Serving → Monitoring → Feedback → Data Collection → Retraining_
+
+---
+
+### 🗂️ Relevant Files
+
+| File | Purpose |
+|------|---------|
+| `docker/docker-compose-prometheus.yaml` | Launches FastAPI, Prometheus, and Grafana |
+| `fastapi/main.py` | Contains `/predict` route and Prometheus instrumentation |
+| `fastapi/frontend/index.html` | HTML frontend for image upload, preview, and feedback |
 
 ---
 
