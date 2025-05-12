@@ -331,6 +331,27 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 - e.g., quantization, ONNX conversion, autoscaling
 - Relevant files: [`serve/`](./serve/), [`optimizations/`](./optimizations/)
 
+**Model Optimization:**
+
+The original model size on disk is approximately **650 MB**.  
+We evaluated its performance by running inference on 100 samples and recorded the following latency statistics:
+
+- **Average Inference Latency**: 8.02 seconds  
+- **Median (50th percentile)**: 4520.34 ms  
+- **95th percentile**: 21563.01 ms  
+- **99th percentile**: 25347.59 ms  
+- **Inference Throughput**: 0.11 FPS
+
+Then, we applied **quantization** to reduce the computational burden and improve efficiency. After quantization, the updated latency metrics were:
+
+- **Average Inference Latency**: 6.03 seconds  
+- **Median (50th percentile)**: 3908.45 ms  
+- **95th percentile**: 14256.32 ms  
+- **99th percentile**: 14458.82 ms  
+- **Inference Throughput**: 0.15 FPS
+
+Quantization resulted in a noticeable improvement in latency and throughput, making the model more suitable for real-time or resource-constrained environments.
+
 ### 🧪 Offline Evaluation
 - Test suite location: [`tests/test_model.py`](./tests/test_model.py)
 - Last model's metrics (accuracy, PSNR, etc.)
