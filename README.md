@@ -308,7 +308,7 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
   - On demand by team members during development or evaluation.
   - As part of a scheduled **cron job** on a persistent node (e.g., for regular retraining based on new uploaded data).
 - Each job loads data from the mounted object store at `/mnt/object` and logs results to MLflow (mounted at `/mnt/block`).
-- We also support re-training using a lightweight script (`retrain.py`) that can be triggered manually, with minimal configuration, and integrates seamlessly with MLflow tracking.
+- We also support re-training using a lightweight script (`retrain.py`) that can be triggered manually, with minimal configuration, and integrates seamlessly with MLflow tracking. In addition to scheduled Ray jobs, we support a lightweight retraining workflow triggered by user-uploaded images. When new high-resolution samples are uploaded (e.g., via a frontend interface), they are stored and periodically processed to generate low-resolution counterparts using bicubic downsampling. Once sufficient data has been collected, we run a pairing script to prepare the training set, and trigger a retraining job using `retrain.py`. This script fine-tunes the model on the new image pairs and logs all artifacts and metrics to MLflow. This setup enables our model to gradually adapt to real-world inputs, closing the loop between user feedback and continuous improvement.
 - For repeatability, the Ray job configuration and retraining shell script are versioned in the `script/` directory for team reuse.
 
 
