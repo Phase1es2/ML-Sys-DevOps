@@ -295,9 +295,37 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 ## 🌐 Unit 6 & 7: Serving and Evaluation
 
 ### 🔌 Serving API
-- Input/Output format of API
-- Serving framework: FastAPI / TorchServe / etc.
+- **Serving framework**: FastAPI
+- **Deployment method**: Docker Compose
+- **FastAPI endpoint**: `http://<server-ip>:8000/predict`
+- **Frontend service**: Flask (connected to FastAPI via `FASTAPI_SERVER_URL`)
 
+- **Input format**:
+  - JSON:
+    ```json
+    {
+      "image": "<Base64-encoded image data or image path>"
+    }
+    ```
+  - Or multipart file upload (key: `file`)
+
+- **Output format**:
+  ```json
+  {
+    "prediction": "super_resolution_output.png",
+    "metrics": {
+      "PSNR": 27.34,
+      "SSIM": 0.89
+    }
+  }
+
+- Volumes and mounts:
+	•	FastAPI code: /home/cc/ML-Sys-DevOps/fastapi:/app
+	•	Shared object storage (read-only): /mnt/object:/mnt/object:ro
+- Monitoring services:
+	•	Prometheus at http://<server-ip>:9090
+	•	Grafana at http://<server-ip>:3000
+  
 ### 📋 Customer-Specific Requirements
 - Latency, accuracy, etc.
 
