@@ -240,11 +240,12 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 
 ### 📈 Experiment Tracking
 - **Platform**: Self-hosted MLflow server at [`http://129.114.24.214:8000`](http://129.114.24.214:8000), running on Chameleon Cloud.
-  - Stores model checkpoints, GPU information, and model architecture summaries.
-  ![Artifacts Output](img/mlflow_artifacts_model_output.png)
+  - Partial screenshot of the MLflow tracking UI:
+    - Stores model checkpoints, GPU information, and model architecture summaries.
+    ![Artifacts Output](img/mlflow_artifacts_model_output.png)
   
-  - Training Metrics Visualization
-  ![Training Metrics](img/mlflow_train_lr_gradloss.png)
+    - Training Metrics Visualization
+    ![Training Metrics](img/mlflow_train_lr_gradloss.png)
 - **Persistent Backends**: MinIO (artifact store) and PostgreSQL (metadata), mounted on `/mnt/block`.
 ### 🔍 Tracking Components
 
