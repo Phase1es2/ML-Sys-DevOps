@@ -3,7 +3,7 @@
 ## 👤 Unit 1: Any Person — Value Proposition
 
 ### 🎯 Specific Customer
-One of our customer will be `Adobe`, A leader in creative and digital media softwar. Adobe's suit of tool-like Photoshop, Lightroom, and Premiere PRo-relies heavily on high-quality imgae processing. Our ML-based super-resolution system can be directtly integrated into Adobe's editing pipeline or bacdkend services to enhance visual quality of preofessionals and everyday users alike.
+One of our customer will be `Adobe`, A leader in creative and digital media softwar. Adobe's suit of tool-like Photoshop, Lightroom, and Premiere Pro-relies heavily on high-quality imgae processing. Our ML-based super-resolution system can be directly integrated into Adobe's editing pipeline or bacdkend services to enhance visual quality of preofessionals and everyday users alike.
 
 ### 💡 Value Proposition
 Our depth-aware super-resolution system enabel Adobe to:
@@ -16,7 +16,8 @@ Our depth-aware super-resolution system enabel Adobe to:
   - High-quality paired datasets of `low-resolution` and `high-resolution`, ideally with aligned depth maps to train the DepthPro model effectively.
   - Real-world create assets to ensure generalization across diverse visual styles used by Adobe users.
 - Deployment constraints
-  - Low latencyt API access via `FastAPI` backend, containerized with Docker for coress-platform compatibility.
+  - Low latency API access via `FastAPI` backend, containerized with Docker for coress-platform compatibility.
+  - Ability to integrate into both cloud services (eg. Creative Cloud) and local installations (e.g., Photoshop plugins, Photoshop app).
 - Evaluation priorities
   - maximize `PSNR` and `SSIM` on benchmark datasets (e.g., DIV2K, Urban100).
   - Human perceptual quality metrics are critical-outputs must look natural and sharp, especially for creative prefessional.
