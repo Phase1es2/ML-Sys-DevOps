@@ -25,16 +25,17 @@ Our depth-aware super-resolution system enabel Adobe to:
 
 ### 📊 Scale
 - Dataset Size: 4.2 GB
-- Model Size: 600 MB  ~ 1.3 GB/ Training Time: XX hours
-- Deployment Load: XX inferences/hour, XX inferences/day
-
+- Model Size: 600 MB  ~ 1.3 GB
 ---
 
 ## ☁️ Unit 2/3: Cloud-Native Infrastructure
 
+<<<<<<< HEAD
 ### 🗺️ Architecture Diagram
 ![Architecture Diagram](img/architecture.jpg)
 
+=======
+>>>>>>> 88a9decf81d8bfdceae934d10e5cc948fcec8406
 ### 🏗️ Infrastructure as Code (IaC)
 We provision and configure our system components primarily using a combination of **Chameleon Cloud**, **shell scripts**, and **Docker Compose**:
 
@@ -240,17 +241,22 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 
 ### 📈 Experiment Tracking
 - **Platform**: Self-hosted MLflow server at [`http://129.114.24.214:8000`](http://129.114.24.214:8000), running on Chameleon Cloud.
-  - Stores model checkpoints, GPU information, and model architecture summaries.
-  ![Artifacts Output](img/mlflow_artifacts_model_output.png)
+
+  - Partial screenshot of the MLflow tracking UI:
+    - Stores model checkpoints, GPU information, and model architecture summaries.
+    ![Artifacts Output](img/mlflow_artifacts_model_output.png)
   
-  - Training Metrics Visualization
-  ![Training Metrics](img/mlflow_train_lr_gradloss.png)
+    - Training Metrics Visualization
+    ![Training Metrics](img/mlflow_train_lr_gradloss.png)
+    - Validation Metrics Visualization
+    ![Validation Metrics](img/mlflow_val_metrics.png)
+
 - **Persistent Backends**: MinIO (artifact store) and PostgreSQL (metadata), mounted on `/mnt/block`.
 ### 🔍 Tracking Components
 
 - **Parameters**:
   - `optimizer_name=Adam`, `lr=0.0001`, `betas=(0.9, 0.999)`
-  - `epochs=20`, `weight_decay=0`, `precision=16` (mixed precision)
+  - `epochs=20`, `weight_decay=0`, `precision=16-mixed` (mixed precision)
   - Trainable parameters: ~163M
 
 - **Metrics**:
@@ -273,7 +279,7 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
   - `val_psnr=24.60`, `val_ssim=0.786`, `val_mse_loss=0.017`
 - Final test performance shows good generalization:
   - `test_psnr≈24.5`, `test_ssim≈0.70`, `test_loss=0.02`
-- Mixed precision training (`precision=16`) reduced per-epoch training time from ~330s to ~140s, saving ~57% compute time.
+- Mixed precision training (`precision=16-mixed`) reduced per-epoch training time from ~330s to ~140s, saving ~57% compute time.
 - Validation curves showed stable improvement across PSNR, SSIM, and MSE, with no sign of overfitting.
 
 ### 📅 Scheduled Training
@@ -364,12 +370,36 @@ I evaluated the model on the **Urban100** dataset and computed the following sup
 
 These metrics help quantify both pixel-level fidelity and perceptual similarity between the model's output and the high-resolution ground truth.
 
-### 🚀 Load Test in Staging
-> *(Paste output or link to results)*
-- Tool used: Locust / JMeter / etc.
+### 🧪 Business-Specific Evaluation: Adobe Integration Scenario
 
-### 💼 Business-Specific Metric
-- Hypothetical KPI, e.g., "revenue lift per improvement in PSNR"
+To demonstrate practical business impact, we designed a hypothetical evaluation scenario tailored to **Adobe**, a global leader in creative and digital media software.
+
+#### 🧭 Use Case
+
+Adobe’s professional tools like **Photoshop**, **Lightroom**, and **Premiere Pro** require advanced image and video processing features. Our **ML-based image super-resolution model** can be embedded in:
+
+- Photoshop as a plug-in for “Enhance Image” operations
+- Lightroom's photo import pipeline to upscale mobile-shot images
+- Adobe Sensei backend for auto-enhancement during rendering/export
+
+#### 🎯 Business-Specific Evaluation Criteria
+
+| Metric | Description |
+|--------|-------------|
+| **PSNR / SSIM Improvement** | Measured improvements over traditional bicubic or GAN-based upscaling |
+| **Inference Time (ms)** | Must support real-time or near-real-time editing in Adobe’s UI (target < 300ms per 512×512 image) |
+| **Memory Footprint** | Must operate within plugin memory constraints (under 500MB RAM per session) |
+| **Edge Case Robustness** | Performance on low-light, compressed, or JPEG-artifact-heavy images from user uploads |
+
+#### 📈 Hypothetical Result Goals
+
+- **+1.8 dB PSNR** over Adobe's internal baseline (e.g., bicubic)
+- **< 200ms average latency** on a 512×512 image on CPU
+- **Zero-crash guarantee** when run as a Photoshop filter plugin
+
+---
+
+> This business-specific evaluation bridges **ML model performance** with **product-level impact** in a real customer context, demonstrating clear value to Adobe’s end users and internal ML teams.
 
 ## 🔁 Unit 8: Online Data
 
