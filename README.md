@@ -317,13 +317,6 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
       "SSIM": 0.89
     }
   }
-
-- Volumes and mounts:
-- **FastAPI code**: /home/cc/ML-Sys-DevOps/fastapi:/app
-- **Shared object storage (read-only)**: /mnt/object:/mnt/object:ro
-- Monitoring services:
-- **Prometheus** at http://<server-ip>:9090
-- **Grafana** at http://<server-ip>:3000
   
 ### 📋 Customer-Specific Requirements
 - Latency, accuracy, etc.
