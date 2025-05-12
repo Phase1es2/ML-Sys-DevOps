@@ -3,15 +3,24 @@
 ## 👤 Unit 1: Any Person — Value Proposition
 
 ### 🎯 Specific Customer
-Describe **one** specific customer/user persona your system is built for.
+One of our customer will be Adobe, A leader in creative and digital media softwar. Adobe's suit of tool-like Photoshop, Lightroom, and Premiere PRo-relies heavily on high-quality imgae processing. Our ML-based super-resolution system can be directtly integrated into Adobe's editing pipeline or bacdkend services to enhance visual quality of preofessionals and everyday users alike.
 
 ### 💡 Value Proposition
-Explain how your ML system benefits this customer. What problem does it solve?
+Our depth-aware4 super-resolution system enabel Adobe to:
+  - Improve image resolution while preserving fine details and edges by leveraging depth informaiton.
+  - Enhane Legacy or low-resolution content into higher-quality outputs for creative workflows.
+  - Enable smart image refinement features powered by AI, differentiating Adobe's products with cutting-edge super-resolution capabilites.
 
 ### 🔍 Customer-Driven Design Considerations
 - Data requirements
+  - High-quality paired datasets of low-resolution and high-resolution, ideally with aligned depth maps to train the DepthPro model effectively.
+  - Real-world create assets to ensure generalization across diverse visual styles used by Adobe users.
 - Deployment constraints
+  - Low latencyt API access via FastAPI backend, containerized with Docker for coress-platform compatibility.
 - Evaluation priorities
+  - maximize PSNR and SSIM on benchmark datasets (e.g., DIV2K, Urban100).
+  - Human perceptual quality metrics are critical-outputs must look natural and sharp, especially for creative prefessional.
+  - Model Size and inferencfe speed tradeoffs matters.
 
 ### 📊 Scale
 - Dataset Size: 4.2 GB
