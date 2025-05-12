@@ -278,7 +278,7 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
   - `val_psnr=24.60`, `val_ssim=0.786`, `val_mse_loss=0.017`
 - Final test performance shows good generalization:
   - `test_psnr≈24.5`, `test_ssim≈0.70`, `test_loss=0.02`
-- Mixed precision training (`precision=16`) reduced per-epoch training time from ~330s to ~140s, saving ~57% compute time.
+- Mixed precision training (`precision=16-mix`) reduced per-epoch training time from ~330s to ~140s, saving ~57% compute time.
 - Validation curves showed stable improvement across PSNR, SSIM, and MSE, with no sign of overfitting.
 
 ### 📅 Scheduled Training
