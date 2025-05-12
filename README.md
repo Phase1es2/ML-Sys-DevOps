@@ -318,11 +318,11 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
   }
 
 - Volumes and mounts:
-- **FastAPI code: /home/cc/ML-Sys-DevOps/fastapi:/app
-- **Shared object storage (read-only): /mnt/object:/mnt/object:ro
+- **FastAPI code**: /home/cc/ML-Sys-DevOps/fastapi:/app
+- **Shared object storage (read-only)**: /mnt/object:/mnt/object:ro
 - Monitoring services:
-- **Prometheus at http://<server-ip>:9090
-- **Grafana at http://<server-ip>:3000
+- **Prometheus** at http://<server-ip>:9090
+- **Grafana** at http://<server-ip>:3000
   
 ### 📋 Customer-Specific Requirements
 - Latency, accuracy, etc.
@@ -334,6 +334,15 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 ### 🧪 Offline Evaluation
 - Test suite location: [`tests/test_model.py`](./tests/test_model.py)
 - Last model's metrics (accuracy, PSNR, etc.)
+
+I evaluated the model on the **Urban100** dataset and computed the following super-resolution quality metrics:
+
+- **MSE (Mean Squared Error)**: 0.609491  
+- **PSNR (Peak Signal-to-Noise Ratio)**: 8.336657  
+- **SSIM (Structural Similarity Index)**: 0.017536396  
+- **SNR (Signal-to-Noise Ratio)**: -2.5604413
+
+These metrics help quantify both pixel-level fidelity and perceptual similarity between the model's output and the high-resolution ground truth.
 
 ### 🚀 Load Test in Staging
 > *(Paste output or link to results)*
