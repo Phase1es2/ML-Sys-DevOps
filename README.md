@@ -370,8 +370,39 @@ These metrics help quantify both pixel-level fidelity and perceptual similarity 
 > *(Paste output or link to results)*
 - Tool used: Locust / JMeter / etc.
 
-### 💼 Business-Specific Metric
-- Hypothetical KPI, e.g., "revenue lift per improvement in PSNR"
+### 🧪 Business-Specific Evaluation: Adobe Integration Scenario
+
+To demonstrate practical business impact, we designed a hypothetical evaluation scenario tailored to **Adobe**, a global leader in creative and digital media software.
+
+#### 🧭 Use Case
+
+Adobe’s professional tools like **Photoshop**, **Lightroom**, and **Premiere Pro** require advanced image and video processing features. Our **ML-based image super-resolution model** can be embedded in:
+
+- Photoshop as a plug-in for “Enhance Image” operations
+- Lightroom's photo import pipeline to upscale mobile-shot images
+- Adobe Sensei backend for auto-enhancement during rendering/export
+
+#### 🎯 Business-Specific Evaluation Criteria
+
+| Metric | Description |
+|--------|-------------|
+| **Perceived Quality Gain** | A/B test comparing user satisfaction between original and upscaled images |
+| **PSNR / SSIM Improvement** | Measured improvements over traditional bicubic or GAN-based upscaling |
+| **Inference Time (ms)** | Must support real-time or near-real-time editing in Adobe’s UI (target < 300ms per 512×512 image) |
+| **Memory Footprint** | Must operate within plugin memory constraints (under 500MB RAM per session) |
+| **Edge Case Robustness** | Performance on low-light, compressed, or JPEG-artifact-heavy images from user uploads |
+| **User Feedback Signal** | Track in-app feedback (e.g., “Looks better” thumbs-up rate) and use it for continuous fine-tuning |
+
+#### 📈 Hypothetical Result Goals
+
+- **+1.8 dB PSNR** over Adobe's internal baseline (e.g., bicubic)
+- **90% positive user rating** in A/B UI test
+- **< 200ms average latency** on a 512×512 image on CPU
+- **Zero-crash guarantee** when run as a Photoshop filter plugin
+
+---
+
+> This business-specific evaluation bridges **ML model performance** with **product-level impact** in a real customer context, demonstrating clear value to Adobe’s end users and internal ML teams.
 
 ## 🔁 Unit 8: Online Data
 
