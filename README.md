@@ -369,10 +369,6 @@ I evaluated the model on the **Urban100** dataset and computed the following sup
 
 These metrics help quantify both pixel-level fidelity and perceptual similarity between the model's output and the high-resolution ground truth.
 
-### 🚀 Load Test in Staging
-> *(Paste output or link to results)*
-- Tool used: Locust / JMeter / etc.
-
 ### 🧪 Business-Specific Evaluation: Adobe Integration Scenario
 
 To demonstrate practical business impact, we designed a hypothetical evaluation scenario tailored to **Adobe**, a global leader in creative and digital media software.
