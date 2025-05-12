@@ -366,12 +366,6 @@ These metrics help quantify both pixel-level fidelity and perceptual similarity 
 ### 💼 Business-Specific Metric
 - Hypothetical KPI, e.g., "revenue lift per improvement in PSNR"
 
-### 🛠️ Optional: Multi-Option Serving
-- Compare FastAPI vs. Triton, or GPU vs. CPU deployments
-- Include cost/performance comparison
-
----
-
 ## 🔁 Unit 8: Online Data
 
 ### 📡 Online Data Flow
