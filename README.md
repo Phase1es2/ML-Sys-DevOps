@@ -63,10 +63,9 @@ To enable persistent storage access during training and inference, we completed 
 
 4. **Shell Script:**
    - Provided an automated setup script `setup_rclone_mnt.sh` under the `script/` directory to simplify the mounting process on new instances. This ensures consistent and reliable data access across the team.
-  - **/mnt/object:**  
-  ![obejct](img/object.png)
-  - **/mnt/block:**  
-  ![block](img/block.png)
+  - **/mnt/object and /mnt/block:**  
+  ![obejct](img/object blcok.png)
+
 ---
 
 ### Offline Datasets & Lineage
