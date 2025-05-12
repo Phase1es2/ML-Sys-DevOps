@@ -247,6 +247,9 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
   
     - Training Metrics Visualization
     ![Training Metrics](img/mlflow_train_lr_gradloss.png)
+    - Validation Metrics Visualization
+    ![Validation Metrics](img/mlflow_val_metrics.png)
+
 - **Persistent Backends**: MinIO (artifact store) and PostgreSQL (metadata), mounted on `/mnt/block`.
 ### 🔍 Tracking Components
 
