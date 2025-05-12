@@ -196,7 +196,6 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 ### 🧮 Modeling Setup
 - Inputs: **Low-resolution images** (e.g., /mnt/object/div2k/train/) generated via bicubic downsampling from **DIV2K** and **Urban100** datasets.
 - Outputs: **High-resolution reconstructed images**, evaluated by PSNR, SSIM, and visual similarity.
-![LR vs HR](img/data.png)
 - Model Used: **DepthPro** — a deep super-resolution model designed for recovering fine image details.
 - Why this model fits your user & task:
 
