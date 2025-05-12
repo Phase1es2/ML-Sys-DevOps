@@ -385,17 +385,14 @@ Adobe’s professional tools like **Photoshop**, **Lightroom**, and **Premiere P
 
 | Metric | Description |
 |--------|-------------|
-| **Perceived Quality Gain** | A/B test comparing user satisfaction between original and upscaled images |
 | **PSNR / SSIM Improvement** | Measured improvements over traditional bicubic or GAN-based upscaling |
 | **Inference Time (ms)** | Must support real-time or near-real-time editing in Adobe’s UI (target < 300ms per 512×512 image) |
 | **Memory Footprint** | Must operate within plugin memory constraints (under 500MB RAM per session) |
 | **Edge Case Robustness** | Performance on low-light, compressed, or JPEG-artifact-heavy images from user uploads |
-| **User Feedback Signal** | Track in-app feedback (e.g., “Looks better” thumbs-up rate) and use it for continuous fine-tuning |
 
 #### 📈 Hypothetical Result Goals
 
 - **+1.8 dB PSNR** over Adobe's internal baseline (e.g., bicubic)
-- **90% positive user rating** in A/B UI test
 - **< 200ms average latency** on a 512×512 image on CPU
 - **Zero-crash guarantee** when run as a Photoshop filter plugin
 
