@@ -441,14 +441,6 @@ The frontend interface enables a simple feedback mechanism:
 
 ---
 
-
-### 🔄 End-to-End Cycle
-- Trigger: new data uploaded → retraining starts
-- Show your CI/CD file: [`retrain.yml`](.github/workflows/retrain.yml)
-- Path: data → training → serving → monitoring
-
----
-
 ## 📎 Appendix (optional)
 
 - 🧪 Sample JSON requests/responses
