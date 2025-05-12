@@ -354,7 +354,7 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 
 ### ⚙️ Model & System Optimizations
 - e.g., quantization, ONNX conversion, autoscaling
-- Relevant files: [`serve/`](./serve/), [`optimizations/`](./optimizations/)
+- Relevant files: [`optimizations.ipynb`](./optimization/optimizations.ipynb)
 
 **Model Optimization:**
 
@@ -378,7 +378,7 @@ Then, we applied **quantization** to reduce the computational burden and improve
 Quantization resulted in a noticeable improvement in latency and throughput, making the model more suitable for real-time or resource-constrained environments.
 
 ### 🧪 Offline Evaluation
-- Test suite location: [`offline.ipynb`](.offline_eval/offline.ipynb)
+- Test suite location: [`offline.ipynb`](./offline_eval/offline.ipynb)
 - Last model's metrics (accuracy, PSNR, etc.)
 
 I evaluated the model on the **Urban100** dataset and computed the following super-resolution quality metrics:
