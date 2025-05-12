@@ -33,8 +33,6 @@ Our depth-aware super-resolution system enabel Adobe to:
 ### 🗺️ Architecture Diagram
 ![Architecture Diagram](img/architecture.jpg)
 
-=======
->>>>>>> 88a9decf81d8bfdceae934d10e5cc948fcec8406
 ### 🏗️ Infrastructure as Code (IaC)
 We provision and configure our system components primarily using a combination of **Chameleon Cloud**, **shell scripts**, and **Docker Compose**:
 
