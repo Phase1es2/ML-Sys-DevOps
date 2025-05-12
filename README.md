@@ -1,17 +1,17 @@
-# 🧠 Project Title: [AI-Driven Image Enhancement for Restoring Low-Quality Images to High Resolution]
+# Project Title: [AI-Driven Image Enhancement for Restoring Low-Quality Images to High Resolution]
 
-## 👤 Unit 1: Any Person — Value Proposition
+## Unit 1: Any Person — Value Proposition
 
-### 🎯 Specific Customer
+### Specific Customer
 One of our customer will be `Adobe`, A leader in creative and digital media softwar. Adobe's suit of tool-like Photoshop, Lightroom, and Premiere Pro-relies heavily on high-quality imgae processing. Our ML-based super-resolution system can be directly integrated into Adobe's editing pipeline or bacdkend services to enhance visual quality of preofessionals and everyday users alike.
 
-### 💡 Value Proposition
+### Value Proposition
 Our depth-aware super-resolution system enabel Adobe to:
   - Improve image resolution while preserving fine details and edges by leveraging depth informaiton.
   - Enhane Legacy or low-resolution content into higher-quality outputs for creative workflows.
   - Enable smart image refinement features powered by AI, differentiating Adobe's products with cutting-edge super-resolution capabilites.
 
-### 🔍 Customer-Driven Design Considerations
+### Customer-Driven Design Considerations
 - Data requirements
   - High-quality paired datasets of `low-resolution` and `high-resolution`, ideally with aligned depth maps to train the DepthPro model effectively.
   - Real-world create assets to ensure generalization across diverse visual styles used by Adobe users.
@@ -36,9 +36,30 @@ Our depth-aware super-resolution system enabel Adobe to:
 > *(Insert or link your updated system diagram here)*
 
 ### 🏗️ Infrastructure as Code (IaC)
-Explain how you provision and configure each system component.
-- Tools used: Terraform / Ansible / Pulumi / etc.
-- Reproducibility scripts: [`/infra/`](./infra/)
+We provision and configure our system components primarily using a combination of **Chameleon Cloud**, **shell scripts**, and **Docker Compose**:
+
+- Our first instance was launched via the **Chameleon GUI** on `KVM@TACC`. We assigned it to a private network, attached a floating IP, and configured the security group accordingly.
+- To set up the development environment (Docker, Jupyter), we used the script:  
+  `/script/jupyter.sh`
+- Host-specific IP setup is done via:  
+  `/script/setup_host_ip.sh`
+- To mount persistent object storage, we used:  
+  `/script/setup_rclone_mnt.sh`  
+  **Note:** `rclone.conf` must be manually created and placed under `~/.config/rclone/`
+- Additional nodes (second and third instances) were provisioned using the Jupyter notebook:  
+  `/cloud_config/_provision.ipynb`
+
+#### 🚀 Service Deployment
+
+- FastAPI is deployed using Docker Compose via:  
+  `/docker/docker-compose-fastapi.yaml`
+- For monitoring and persistent data storage (e.g., MinIO, MLflow), we use:  
+  `/docker/docker-compose-block.yaml`
+
+#### 🔍 Testing the Pipeline
+
+- To test end-to-end inference, we first bring up the FastAPI service and then run:  
+  `/script/send_to_inference_endpoint.py`
 
 ---
 
