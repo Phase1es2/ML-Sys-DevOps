@@ -21,7 +21,7 @@ Our depth-aware super-resolution system enabel Adobe to:
 - Evaluation priorities
   - maximize `PSNR` and `SSIM` on benchmark datasets (e.g., DIV2K, Urban100).
   - Human perceptual quality metrics are critical-outputs must look natural and sharp, especially for creative prefessional.
-  - Model Size and inferencfe speed tradeoffs matters.
+  - Model Size and inference speed tradeoffs matters.
 
 ### 📊 Scale
 - Dataset Size: 4.2 GB
