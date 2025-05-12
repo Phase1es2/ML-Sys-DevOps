@@ -30,7 +30,6 @@ Our depth-aware super-resolution system enabel Adobe to:
 
 ## ☁️ Unit 2/3: Cloud-Native Infrastructure
 
-<<<<<<< HEAD
 ### 🗺️ Architecture Diagram
 ![Architecture Diagram](img/architecture.jpg)
 
