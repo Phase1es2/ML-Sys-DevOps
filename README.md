@@ -378,7 +378,7 @@ Then, we applied **quantization** to reduce the computational burden and improve
 Quantization resulted in a noticeable improvement in latency and throughput, making the model more suitable for real-time or resource-constrained environments.
 
 ### 🧪 Offline Evaluation
-- Test suite location: [`tests/test_model.py`](./tests/test_model.py)
+- Test suite location: [`offline.ipynb`](.offline_eval/offline.ipynb)
 - Last model's metrics (accuracy, PSNR, etc.)
 
 I evaluated the model on the **Urban100** dataset and computed the following super-resolution quality metrics:
