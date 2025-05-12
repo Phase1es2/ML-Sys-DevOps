@@ -32,9 +32,6 @@ Our depth-aware super-resolution system enabel Adobe to:
 
 ## ☁️ Unit 2/3: Cloud-Native Infrastructure
 
-### 🗺️ Architecture Diagram
-> *(Insert or link your updated system diagram here)*
-
 ### 🏗️ Infrastructure as Code (IaC)
 We provision and configure our system components primarily using a combination of **Chameleon Cloud**, **shell scripts**, and **Docker Compose**:
 
