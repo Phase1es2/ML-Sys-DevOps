@@ -296,7 +296,7 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 
 ### 🔌 Serving API
 - **Serving framework**: FastAPI
-- **Deployment method**: Docker Compose
+- **Deployment method**: docker-compose-prometheus-1.yaml
 - **FastAPI endpoint**: `http://<server-ip>:8000/predict`
 - **Frontend service**: Flask (connected to FastAPI via `FASTAPI_SERVER_URL`)
 
@@ -307,8 +307,6 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
       "image": "<Base64-encoded image data or image path>"
     }
     ```
-  - Or multipart file upload (key: `file`)
-
 - **Output format**:
   ```json
   {
