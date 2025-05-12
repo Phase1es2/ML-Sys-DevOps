@@ -25,9 +25,7 @@ Our depth-aware super-resolution system enabel Adobe to:
 
 ### 📊 Scale
 - Dataset Size: 4.2 GB
-- Model Size: 600 MB  ~ 1.3 GB/ Training Time: XX hours
-- Deployment Load: XX inferences/hour, XX inferences/day
-
+- Model Size: 600 MB  ~ 1.3 GB
 ---
 
 ## ☁️ Unit 2/3: Cloud-Native Infrastructure
