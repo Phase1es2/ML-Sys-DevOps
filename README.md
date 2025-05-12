@@ -196,6 +196,29 @@ This volume is manually mounted on the host system (e.g., `/dev/vdc1` → `/mnt/
 - Outputs: **High-resolution reconstructed images**, evaluated by PSNR, SSIM, and visual similarity.
 ![LR vs HR](img/data.png)
 - Model Used: **DepthPro** — a deep super-resolution model designed for recovering fine image details.
+  - Our super-resolution model is based on a customized variant of **DepthPro**, originally proposed for monocular depth estimation, which we adapt to perform **image super-resolution** by leveraging its hierarchical feature extraction and multi-scale fusion capabilities.
+
+    The architecture is composed of three main components:
+
+    1. **Encoder (DepthPro Transformer Backbone):**  
+       The encoder utilizes a hierarchical Vision Transformer to extract multi-scale features from the input low-resolution (LR) image. It processes scaled image inputs 
+    (e.g., 0.5× and 1.0×) and fuses their patch-wise embeddings via self-attention. Intermediate features from selected transformer blocks are exposed via 
+    `intermediate_hook_ids` to support feature reuse during decoding.
+
+    2. **Depth-Aware Fusion Stage:**  
+       A dedicated fusion module aggregates multi-scale features from different layers of the transformer using depth-guided attention mechanisms. This stage integrates 
+    both spatial detail and semantic context into a unified latent representation that is resolution-aware.
+
+    3. **Decoder Head (Super-Resolution Module):**  
+       The decoder reconstructs the high-resolution (HR) image using a lightweight convolutional stack:
+       - The **`image_head`** first upsamples shallow input features using a `ConvTranspose2D + ReLU` block.
+       - These are aligned (via interpolation) and **residually combined** with the fused transformer features.
+       - The **`head`** module applies a sequence of `Conv2D`, `ConvTranspose2D`, and `ReLU` operations to progressively refine and upscale the feature map, ending with a 
+    projection back to RGB space.
+
+
+
+
 - Why this model fits your user & task:
 
   We selected **DepthPro** for its strong ability to preserve structural and edge details—critical for high-quality image restoration.  
