@@ -6,7 +6,7 @@
 One of our customer will be Adobe, A leader in creative and digital media softwar. Adobe's suit of tool-like Photoshop, Lightroom, and Premiere PRo-relies heavily on high-quality imgae processing. Our ML-based super-resolution system can be directtly integrated into Adobe's editing pipeline or bacdkend services to enhance visual quality of preofessionals and everyday users alike.
 
 ### 💡 Value Proposition
-Our depth-aware4 super-resolution system enabel Adobe to:
+Our depth-aware super-resolution system enabel Adobe to:
   - Improve image resolution while preserving fine details and edges by leveraging depth informaiton.
   - Enhane Legacy or low-resolution content into higher-quality outputs for creative workflows.
   - Enable smart image refinement features powered by AI, differentiating Adobe's products with cutting-edge super-resolution capabilites.
