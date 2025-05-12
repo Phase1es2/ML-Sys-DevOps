@@ -239,10 +239,10 @@ This setup enables automated, batch-style inference suitable for production pipe
 
 ---
 
-## 📈 Unit 6 & 7: Online Evaluation & Monitoring (1 minute)
+## 📈 Unit 6 & 7: Online Evaluation & Monitoring
 
 ### 🔍 Monitoring in Production
-- Monitoring dashboards: Prometheus, Grafana, etc.
+- Monitoring dashboards: Prometheus, Grafana
 - Example feedback loop (e.g., user clicks → retraining signal)
 
 ---
