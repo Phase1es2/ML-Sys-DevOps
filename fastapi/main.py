@@ -7,8 +7,20 @@ import io
 import os
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI(title="Super-Resolution API", version="1.0.0")
+Instrumentator().instrument(app).expose(app)
+
+from prometheus_client import Counter, Histogram
+import time
+
+# metrics
+PREDICT_COUNT = Counter("predict_requests_total", "Total number of /predict requests")
+PREDICT_LATENCY = Histogram("predict_request_duration_seconds", "Latency of /predict requests")
+
+
+
 
 # Model setup
 config = DepthProConfig(
@@ -55,7 +67,8 @@ class DepthProForSuperResolution(torch.nn.Module):
 # Load model from Lightning .ckpt
 
 
-MODEL_PATH = "model-epoch=07-val_psnr=24.88.ckpt"
+# MODEL_PATH = "model-epoch=07-val_psnr=24.88.ckpt"
+MODEL_PATH = "/app/model-epoch=07-val_psnr=24.88.ckpt"
 checkpoint = torch.load(MODEL_PATH, map_location="cpu")
 
 state_dict = checkpoint["state_dict"]
@@ -73,7 +86,9 @@ model = model.to(device).eval()
 image_processor = DepthProImageProcessorFast(do_resize=False, do_rescale=True, do_normalize=True)
 
 @app.post("/predict")
+@PREDICT_LATENCY.time()
 async def predict(file: UploadFile = File(...)):
+    PREDICT_COUNT.inc()
     image = Image.open(io.BytesIO(await file.read())).convert("RGB")  # Ensure 3 channels
     image.thumbnail((256, 256))
 

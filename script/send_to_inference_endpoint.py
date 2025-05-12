@@ -5,7 +5,8 @@ import requests
 URL = "http://localhost:5000/predict"  # Change if server is remote
 
 # New image directory on mounted path
-IMAGE_DIR = "/mnt/object/bsd100/bsd100/bicubic_2x/train/HR"
+# IMAGE_DIR = "/mnt/object/bsd100/bsd100/bicubic_2x/train/HR"
+IMAGE_DIR = "/mnt/object/urban100/Urban 100/X2 Urban100/X2/LOW X2 Urban"
 
 # Output directory
 os.makedirs("../../inference_outputs", exist_ok=True)

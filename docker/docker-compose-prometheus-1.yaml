@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  fastapi_server:
+    build:
+      context: /home/cc/ML-Sys-DevOps/fastapi
+      dockerfile: Dockerfile
+    container_name: fastapi_server
+    ports:
+      - "8000:8000"
+    volumes:
+      - /home/cc/ML-Sys-DevOps/fastapi:/app
+      - /mnt/object:/mnt/object:ro
+
+  flask:
+    build:
+      context: https://github.com/Phase1es2/ML-Sys-DevOps.git#main:fastapi
+    container_name: flask
+    ports:
+      - "5000:5000"
+    environment:
+      - FASTAPI_SERVER_URL=http://fastapi_server:8000 # let Flask app know where to access the inference endpoint
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
